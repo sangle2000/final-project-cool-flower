@@ -1,0 +1,79 @@
+.header-container {
+    width: 100vw;
+    height: 85vh;
+    background-image: url("https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 0 0 6rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 8rem 0;
+
+    .header-title {
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    .header-content {
+        max-width: 45%;
+        font-size: 4.25rem;
+        font-weight: 600;
+    }
+
+    .header-button {
+        text-align: center;
+        background-color: #FC5F5F;
+        width: 136px;
+        padding: 12px 24px;
+        margin-top: 36px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #fff;
+        border-radius: 24px;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #75C32C;
+        }
+    }
+}
+
+.feature-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-top: 4rem;
+    padding: 0 8rem;
+
+    .feature-detail {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            cursor: default;
+
+            &-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+
+            &-desc {
+                color: #946167;
+            }
+        }
+
+        &-icon {
+            margin-right: 1.5rem;
+            font-size: 1.6rem;
+            color: #75C32C;
+        }
+    }
+}
