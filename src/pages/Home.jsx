@@ -1,3 +1,4 @@
+import Feature from "../components/Feature";
 import CollectionCard from "../components/Home/CollectionCard";
 import Header from "../components/Home/Header";
 
@@ -44,6 +45,8 @@ function Home() {
           );
         })}
       </div>
+
+      <Feature />
     </>
   );
 }
