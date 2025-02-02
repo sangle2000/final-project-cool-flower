@@ -1,0 +1,42 @@
+.feedback-wrapper {
+    width: 100vw;
+    height: 100vh;
+    padding: 0 12rem;
+    margin-top: 16rem;
+
+    .carousel {
+        cursor: grab;
+        overflow: hidden;
+
+        .inner-carousel {
+            display: flex;
+            width: 200%;
+
+            .card-container {
+                min-width: 20rem;
+                height: 342px;
+                padding: 40px;
+                list-style: none;
+                background-color: #fff;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                pointer-events: none;
+        
+                .feedback-user-image {
+                    img {
+                        width: 140px;
+                        height: 140px;
+                        object-fit: cover;
+                    }
+                }
+    
+                .feedback-user-comment {
+                    text-align: center;
+                }
+            }    
+        }
+    }
+}

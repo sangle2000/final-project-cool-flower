@@ -1,0 +1,46 @@
+.helper-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    padding: 0 8rem;
+    margin-top: 16rem;
+
+    .helper-section-1 {
+        max-width: 30%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        &-title {
+            color: #2B2F38;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 4rem;
+        }
+
+        &-phone {
+            display: inline-flex;
+            justify-content: start;
+            align-items: center;
+            text-transform: uppercase;
+            color: #FC5F5F;
+            font-weight: 600;
+            letter-spacing: 2px;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+                color: #2B2F38;
+            }
+        }
+    }
+
+    .helper-section-2 {
+        max-width: 60%;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}

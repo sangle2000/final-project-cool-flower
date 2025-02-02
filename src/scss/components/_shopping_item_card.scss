@@ -1,81 +1,112 @@
-.feature-item-card-container {
+.item-card-container {
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    position: relative;
+    max-width: calc(25% - 1.5rem);
 
-    .item-card-container {
+    img {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .item-card-detail {
         display: flex;
         flex-direction: column;
-        position: relative;
-    
-        img {
-            width: 100%;
+
+        &-type {
+            color: #9D9FA3;
+            font-size: 0.875rem;
+            font-weight: 700;
         }
 
-        .item-card-detail {
-            display: flex;
-            flex-direction: column;
+        &-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
 
-            &-type {
+        &-star {
+            display: flex;
+            align-items: start;
+            gap: 4px;
+        }
+
+        &-price {
+            &-old {
+                font-weight: 700;
                 color: #9D9FA3;
-                font-size: 0.875rem;
+                text-decoration: line-through;
+                margin-right: 4px;
+            }
+
+            &-current {
                 font-weight: 700;
             }
-
-            &-name {
-                font-size: 1.1rem;
-                font-weight: 600;
-                margin-top: 8px;
-            }
-
-            &-star {
-                display: flex;
-                align-items: start;
-                gap: 4px;
-            }
-
-            &-price {
-                &-old {
-                    font-weight: 700;
-                    color: #9D9FA3;
-                    text-decoration: line-through;
-                    margin-right: 4px;
-                }
-
-                &-current {
-                    font-weight: 700;
-                }
-            }
         }
+    }
 
-        .item-card-sale {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
+    .item-card-sale {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background-color: #fff;
+        padding: 4px 16px;
+        border-radius: 24px;
+        box-shadow: 0px 2px 8px #aaaaaa;
+    }
+
+    .item-card-cart {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        
+        &-icon {
             background-color: #fff;
-            padding: 4px 16px;
-            border-radius: 24px;
+            padding: 4px 8px;
+            border-radius: 50%;
             box-shadow: 0px 2px 8px #aaaaaa;
+            z-index: 10;
+            cursor: pointer;
+            position: relative;
         }
-
-        .item-card-cart {
+    
+        /* Fix the hover issue */
+        &-icon:hover + .item-card-cart-desc {
+            opacity: 1;
+            visibility: visible;
+        }
+    
+        &-desc {
+            background-color: #2B2F38;
+            color: #fff;
+            padding: 4px 8px;
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            
-            &-icon {
-                background-color: #fff;
-                padding: 4px 8px;
-                border-radius: 50%;
-                box-shadow: 0px 2px 8px #aaaaaa;
-            }
-
-            &-desc {
-                background-color: #000;
-                color: #fff;
-                padding: 4px 8px;
-                margin-right: 1rem;
+            right: 2.5rem; /* Adjust distance from icon */
+            top: 50%;
+            transform: translateY(-50%);
+            border: 1px solid #fff;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            opacity: 0;
+            visibility: hidden;
+            white-space: nowrap;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+    
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: -10px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 5px;
+                border-color: transparent transparent transparent #2B2F38;
             }
         }
     }
 }
+
+
 

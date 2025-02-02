@@ -3,4 +3,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    padding: 0 4rem;
+
+    .feature-title {
+        color: #2B2F38;
+        font-size: 2.4rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .feature-desc {
+        color: #946167;
+    }
+
+    .feature-item-card-container {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
 }

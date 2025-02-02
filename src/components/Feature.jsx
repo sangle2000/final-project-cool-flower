@@ -99,8 +99,21 @@ function Feature() {
         <span className="feature-desc">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </span>
-
-        <ShoppingItemCard />
+        <div className="feature-item-card-container">
+          {plantData.map((data) => {
+            return (
+              <ShoppingItemCard
+                key={data.id}
+                image={data.image}
+                name={data.name}
+                type={data.type}
+                isSale={data.sale}
+                oldPrice={data.originPrice}
+                currentPrice={data.currentPrice}
+              />
+            );
+          })}
+        </div>
       </div>
     </>
   );
