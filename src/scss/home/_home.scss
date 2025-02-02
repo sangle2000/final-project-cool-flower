@@ -17,4 +17,41 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+
+    div {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-title {
+        color: #2B2F38;
+        font-size: 2.8rem;
+        text-align: center;
+        font-weight: 700;
+        margin: 4rem 0 1rem 0;
+    }
+
+    &-content {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    &-button {
+        background-color: #FC5F5F;
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        padding: 1rem 2rem;
+        border-radius: 48px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background-color: #75C32C;
+        }
+    }
 }

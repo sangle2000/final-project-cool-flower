@@ -2,7 +2,7 @@ import Feature from "../components/Feature";
 import CollectionCard from "../components/Home/CollectionCard";
 import Feedback from "../components/Home/Feedback";
 import Header from "../components/Home/Header";
-import Helper from "../components/Home/Helper";
+import Helper from "../components/Helper";
 
 const data = [
   {
@@ -53,14 +53,19 @@ function Home() {
       <Feedback />
 
       <section className="home-footer">
-        <span className="home-footer-title">
-          Interested? Shop This Plant Collection!
-        </span>
-        <span className="home-footere-content">
-          Neque porro quisquam est, qui dolore ipsum quia dolor sit amet,
-          consectetur adipisci velit, sed quia non numquam eius modi tempora
-          incidunt.
-        </span>
+        <div>
+          <span className="home-footer-title">
+            Interested? Shop This Plant Collection!
+          </span>
+        </div>
+
+        <div>
+          <span className="home-footer-content">
+            Neque porro quisquam est, qui dolore ipsum quia dolor sit amet,
+            consectetur adipisci velit, sed quia non numquam eius modi tempora
+            incidunt.
+          </span>
+        </div>
         <span className="home-footer-button">Go to shop</span>
       </section>
     </>
