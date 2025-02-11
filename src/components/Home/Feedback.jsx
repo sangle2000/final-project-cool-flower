@@ -61,13 +61,35 @@ const userComment = [
 
 function Feedback() {
 
+    const [swiperRef, setSwiperRef] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        if (!swiperRef) return;
+
+        const timer = setInterval(() => {
+            console.log("Current Index: ", swiperRef.activeIndex);
+            if (swiperRef.activeIndex === activeIndex) {
+                swiperRef.slideNext(); // Move to next slide after 5s of inactivity
+            }
+        }, 5000);
+
+        return () => clearTimeout(timer); // Cleanup on index change
+    }, [activeIndex, swiperRef]);
+
     return (
         <>
             <div className="feedback-wrapper">
+                <h1 className="feedback-title">
+                    Customer Feedback
+                </h1>
+
                 <Swiper
+                    onSwiper={setSwiperRef}
+                    onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
                     effect={'slide'}
                     grabCursor={true}
-                    centeredSlides={false}
+                    centeredSlides={true}
                     loop={true}
                     slidesPerView={'auto'}
                     spaceBetween={0}
@@ -78,13 +100,8 @@ function Feedback() {
                             return (
                                 <SwiperSlide
                                     key={usrCmt.id}
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        width: "30%",
-                                    }}>
+                                    className="card-container"
+                                >
                                     <FeedbackUserCard name={usrCmt.name} avatar={usrCmt.avatar} comment={usrCmt.comment}
                                                       rate={usrCmt.rate}/>
                                 </SwiperSlide>
