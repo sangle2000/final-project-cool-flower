@@ -68,7 +68,6 @@ function Feedback() {
         if (!swiperRef) return;
 
         const timer = setInterval(() => {
-            console.log("Current Index: ", swiperRef.activeIndex);
             if (swiperRef.activeIndex === activeIndex) {
                 swiperRef.slideNext(); // Move to next slide after 5s of inactivity
             }
