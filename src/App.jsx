@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./scss/index.scss";
-import Navbar from "./components/Navbar";
+import HomeNavbar from "./components/HomeNavbar.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./sections/Footer";
@@ -11,7 +11,7 @@ import Footer from "./sections/Footer";
 function App() {
   return (
     <>
-      <Navbar />
+      <HomeNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
