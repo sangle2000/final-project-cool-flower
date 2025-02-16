@@ -1,10 +1,31 @@
 .footer-wrapper {
   padding: 4rem 16rem;
+  
+  @media screen and (max-width: 720px) {
+    padding: 0 2rem;
+    margin-top: 4rem;
+  }
+
+  @media screen and (min-width: 721px) and (max-width: 1024px) {
+    padding: 0 1rem;
+    margin-top: 4rem;
+  }
 
   .footer-content-container {
     display: flex;
     width: 100%;
     justify-content: center;
+
+    @media screen and (max-width: 720px) {
+      flex-direction: column;
+      align-items: start;
+      gap: 2rem;
+    }
+
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
 
     .brand-info {
       display: flex;
@@ -13,9 +34,28 @@
       gap: 1rem;
       width: 20%;
 
+      @media screen and (max-width: 720px) {
+        align-items: start;
+        width: 100%;
+      }
+
+      @media screen and (min-width: 721px) and (max-width: 1024px) {
+        align-items: start;
+        width: calc(50% - 2rem);
+      }
+
       img {
         width: 4rem;
         align-self: center;
+
+        @media screen and (max-width: 720px) {
+          width: 6rem;
+          align-self: start;
+        }
+
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+          align-self: start;
+        }
       }
 
       span {
@@ -52,9 +92,21 @@
       flex-direction: column;
       align-items: start;
 
+      @media screen and (max-width: 720px) {
+        width: 100%;
+      }
+
+      @media screen and (min-width: 721px) and (max-width: 1024px) {
+        width: calc(50% - 2rem);
+      }
+
       span {
         font-size: 1.4rem;
         cursor: default;
+
+        @media screen and (max-width: 1024px) {
+          font-weight: 500;
+        }
       }
 
       ul {
@@ -77,6 +129,27 @@
       width: 20%;
       display: flex;
       flex-direction: column;
+
+      @media screen and (max-width: 720px) {
+        width: 100%;
+      }
+
+      @media screen and (min-width: 721px) and (max-width: 1024px) {
+        width: calc(50% - 2rem);
+      }
+
+      .other-title {
+        font-size: 1.4rem;
+
+        @media screen and (max-width: 720px) {
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+          font-weight: 500;
+        }
+      }
     }
   }
 }

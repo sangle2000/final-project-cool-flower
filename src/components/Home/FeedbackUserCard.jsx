@@ -10,7 +10,9 @@ function FeedbackUserCard({ name, avatar, comment, rate }) {
       <h2 className="feedback-user-name">{name}</h2>
       <span className="feedback-user-comment">{comment}</span>
       <span className="feedback-user-rate">
-        {rate} <i className="feedback-user-rate-icon bi bi-star"></i>
+          {Array.from({ length: rate }, (_, i) => (
+              <i key={i} className="feedback-user-rate-icon bi bi-star-fill"></i>
+          ))}
       </span>
     </>
   );

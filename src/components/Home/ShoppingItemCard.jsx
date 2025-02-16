@@ -46,15 +46,13 @@ function ShoppingItemCard({
             ${currentPrice.toFixed(2)}
           </span>
         </div>
+
+        <button className="item-card-button" onClick={handleAddToCart}>
+          Add to cart
+        </button>
       </div>
 
       {isSale && <span className="item-card-sale">Sale!</span>}
-      <div className="item-card-cart">
-        <span className="item-card-cart-icon" onClick={handleAddToCart}>
-          <i className="bi bi-bag-plus"></i>
-        </span>
-        <span className="item-card-cart-desc">Add to cart</span>
-      </div>
     </div>
   );
 }

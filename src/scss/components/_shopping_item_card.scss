@@ -4,6 +4,14 @@
     position: relative;
     max-width: calc(25% - 1.5rem);
 
+    @media screen and (max-width: 720px) {
+        max-width: calc(50% - 1.5rem);
+    }
+    
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+        max-width: calc(33.33% - 1.5rem);
+    }
+
     img {
         width: 100%;
         cursor: pointer;
@@ -12,6 +20,11 @@
     .item-card-detail {
         display: flex;
         flex-direction: column;
+        gap: 0.5rem;
+
+        @media screen and (max-width: 1024px) {
+            gap: 0.25rem;
+        }
 
         &-type {
             color: #9D9FA3;
@@ -23,6 +36,13 @@
             font-size: 1.1rem;
             font-weight: 600;
             margin-top: 8px;
+
+            @media screen and (max-width: 1024px) {
+                max-width: 100%;
+                white-space: nowrap; /* Ensures text stays in one line */
+                overflow: hidden; /* Hides overflow text */
+                text-overflow: ellipsis; /* Shows "..." when text overflows */
+            }
         }
 
         &-star {
@@ -52,58 +72,34 @@
         background-color: #fff;
         padding: 4px 16px;
         border-radius: 24px;
-        box-shadow: 0px 2px 8px #aaaaaa;
+        box-shadow: 0 2px 8px #aaaaaa;
+
+        @media screen and (max-width: 720px) {
+            scale: 0.75;
+            top: 0.5rem;
+            left: 0;
+        }
     }
 
-    .item-card-cart {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
+    .item-card-button {
+        background-color: transparent;
+        border-radius: 1rem;
+        transition: all 0.3s ease-in-out;
+        border: 1px solid #000;
+        padding: 0.75rem 0;
         
-        &-icon {
-            background-color: #fff;
-            padding: 4px 8px;
-            border-radius: 50%;
-            box-shadow: 0px 2px 8px #aaaaaa;
-            z-index: 10;
-            cursor: pointer;
-            position: relative;
+        @media screen and (max-width: 720px) {
+            padding: 0.25rem 0;
         }
-    
-        /* Fix the hover issue */
-        &-icon:hover + .item-card-cart-desc {
-            opacity: 1;
-            visibility: visible;
+        
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+            padding: 0.5rem 0;
         }
-    
-        &-desc {
-            background-color: #2B2F38;
+
+        &:hover {
+            background-color: #75C32C;
             color: #fff;
-            padding: 4px 8px;
-            position: absolute;
-            right: 2.5rem; /* Adjust distance from icon */
-            top: 50%;
-            transform: translateY(-50%);
-            border: 1px solid #fff;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            opacity: 0;
-            visibility: hidden;
-            white-space: nowrap;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-    
-            &::after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                right: -10px;
-                width: 0;
-                height: 0;
-                border-style: solid;
-                border-width: 5px;
-                border-color: transparent transparent transparent #2B2F38;
-            }
+            border: 1px solid #75C32C;
         }
     }
 }

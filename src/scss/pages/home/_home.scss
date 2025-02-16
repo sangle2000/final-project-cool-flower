@@ -1,10 +1,22 @@
 .collection-card-container {
     display: flex;
     gap: 4rem;
-    height: 600px;
+    min-height: 600px;
     justify-content: center;
     padding: 0 8rem;
     margin: 8rem 0;
+
+    @media screen and (max-width: 720px) {
+        flex-direction: column;
+        padding: 0 1.5rem;
+        gap: 2rem;
+        margin: 8rem 0 4rem;
+    }
+
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+        gap:1.52rem;
+        padding: 0 2rem;
+    }
 }
 
 .home-footer {
@@ -18,11 +30,29 @@
     justify-content: start;
     align-items: center;
 
+    @media screen and (max-width: 720px) {
+        height: 75vh;
+    }
+
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+        height: 50vh;
+    }
+
     div {
         width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @media screen and (max-width: 720px) {
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+            width: 100%;
+            padding: 0 4rem;
+        }
     }
 
     &-title {
@@ -31,11 +61,29 @@
         text-align: center;
         font-weight: 700;
         margin: 4rem 0 1rem 0;
+
+        @media screen and (max-width: 720px) {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+            font-size: 2.4rem;
+            font-weight: 600;
+        }
     }
 
     &-content {
         text-align: center;
         margin-bottom: 4rem;
+
+        @media screen and (max-width: 720px) {
+            margin-bottom: 1rem;
+        }
+
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+            margin-bottom: 2rem;
+        }
     }
 
     &-button {

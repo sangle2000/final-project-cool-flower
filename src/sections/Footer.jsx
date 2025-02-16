@@ -35,11 +35,7 @@ function Footer() {
             </ul>
           </div>
           <div className="other">
-            <p
-              style={{
-                fontSize: "1.4rem",
-              }}
-            >
+            <p className="other-title">
               Get In Touch With Us For The Best Quality Plants & Succulents
             </p>
 
