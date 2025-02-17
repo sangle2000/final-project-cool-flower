@@ -7,6 +7,7 @@ import HomeNavbar from "./components/HomeNavbar.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./sections/Footer";
+import Store from "./pages/Store.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <HomeNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/store" element={<Store />} />
       </Routes>
       <Footer />
       <ToastContainer pauseOnFocusLoss={false} draggable />

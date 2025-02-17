@@ -3,6 +3,8 @@ import CollectionCard from "../components/Home/CollectionCard";
 import Feedback from "../components/Home/Feedback";
 import Header from "../components/Home/Header";
 import Helper from "../components/Helper";
+import WrappedHeader from "../components/Home/Header";
+import Policy from "../components/Home/Policy.jsx";
 
 const data = [
   {
@@ -33,7 +35,9 @@ const data = [
 function Home() {
   return (
     <>
-      <Header />
+      <WrappedHeader image="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg" />
+
+      <Policy />
 
       <div className="collection-card-container">
         {data.map((item) => {

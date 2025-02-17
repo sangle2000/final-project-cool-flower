@@ -1,15 +1,4 @@
 .header-container {
-    width: 100vw;
-    height: 85vh;
-    background-image: url("https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border-radius: 0 0 4rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4rem 8rem 0;
 
     @media screen and (max-width: 720px) {
         border-radius: 0 0 2rem 2rem;
