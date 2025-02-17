@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import FeedbackUserCard from "./FeedbackUserCard";
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/react";

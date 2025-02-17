@@ -1,0 +1,49 @@
+.recommend-product-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 0 12rem;
+
+  @media screen and (max-width: 720px) {
+    padding: 0 2rem;
+  }
+
+  @media screen and (min-width: 721px) and (max-width: 1024px) {
+    padding: 0 2rem;
+  }
+
+  .recommend-product-title {
+    margin: 8rem 4rem 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+
+    @media screen and (max-width: 721px) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .recommend-product-content {
+    width: 100vw;
+    height: 50vh;
+    padding: 0 12rem;
+
+    @media screen and (max-width: 720px) {
+      padding: 0 1rem;
+      height: 45vh;
+    }
+
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+      padding: 0 4rem;
+      height: 25vh;
+      margin-bottom: 2rem;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

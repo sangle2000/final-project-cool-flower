@@ -12,6 +12,6 @@ function Header() {
   );
 }
 
-const WrappedHeader = HeaderBackgroundWrapper(Header);
+const HomeHeader = HeaderBackgroundWrapper(Header);
 
-export default WrappedHeader;
+export default HomeHeader;

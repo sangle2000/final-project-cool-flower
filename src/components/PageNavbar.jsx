@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function HomeNavbar() {
+function PageNavbar() {
     const [currentPage, setCurrentPage] = useState("");
     const [device, setDevice] = useState("");
 
@@ -53,7 +53,7 @@ function HomeNavbar() {
                                     position: "absolute",
                                     width: "100vw",
                                     top: "100%",
-                                    backgroundColor: "#E8E8E6",
+                                    backgroundColor: "transparent",
                                     left: "50%",
                                     transform: "translateX(-50%)",
                                     padding: "0 2rem",
@@ -98,4 +98,4 @@ function HomeNavbar() {
     );
 }
 
-export default HomeNavbar;
+export default PageNavbar;
