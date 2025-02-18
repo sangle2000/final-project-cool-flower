@@ -18,10 +18,8 @@ function PageNavbar() {
     useEffect(() => {
         const checkDevice = () => {
             const width = window.innerWidth;
-            if (width <= 768) {
+            if (width <= 991) {
                 setDevice("Mobile");
-            } else if (width <= 1024) {
-                setDevice("Tablet");
             } else {
                 setDevice("PC");
             }

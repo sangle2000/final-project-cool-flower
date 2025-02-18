@@ -1,0 +1,54 @@
+.team-member-card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0 1rem;
+
+  .team-member-card-image {
+    width: 75%;
+
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+
+  .team-member-card-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    .team-member-card-name {
+      
+      @media screen and (min-width: 721px) and (max-width: 1024px) {
+        font-size: 1.4rem;
+      }
+    }
+
+    .team-member-card-role {
+      color: #5D6167;
+    }
+  }
+
+  .blank {
+    width: 4rem;
+    border: 2px solid #FC5F5F;
+  }
+
+  .team-member-card-social {
+    display: flex;
+    gap: 4rem;
+
+    i {
+      font-size: 2rem;
+      color: black;
+
+      @media screen and (min-width: 721px) and (max-width: 1024px) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

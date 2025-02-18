@@ -1,0 +1,29 @@
+.team-intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  margin: 12rem 0;
+
+  @media screen and (max-width: 1024px) {
+    margin: 8rem 0;
+  }
+
+  .team-intro-title {
+    margin: 2rem 0;
+  }
+
+  .team-intro-content {
+    text-align: center;
+  }
+
+  .team-members-container {
+    display: flex;
+    gap: 2rem;
+
+    @media screen and (max-width: 720px) {
+      flex-direction: column;
+    }
+  }
+}

@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./sections/Footer";
 import Store from "./pages/Store.jsx";
+import About from "./pages/About.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
       <ToastContainer pauseOnFocusLoss={false} draggable />
