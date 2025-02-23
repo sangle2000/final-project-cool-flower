@@ -1,15 +1,13 @@
 .footer-wrapper {
   padding: 4rem 16rem;
-  border: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   
   @media screen and (max-width: 720px) {
-    padding: 0 2rem;
-    margin-top: 4rem;
+    padding: 4rem 2rem;
   }
 
   @media screen and (min-width: 721px) and (max-width: 1024px) {
-    padding: 0 1rem;
-    margin-top: 4rem;
+    padding: 4rem 1rem;
   }
 
   .footer-content-container {

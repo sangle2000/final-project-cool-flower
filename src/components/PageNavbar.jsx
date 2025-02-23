@@ -32,7 +32,7 @@ function PageNavbar() {
 
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary" style={{ zIndex: 100 }}>
+            <Navbar expand="lg" className="bg-body-tertiary" style={{ zIndex: 100, position: currentPage.startsWith("/account") ? "relative" : "fixed" }}>
                 <Container>
                     <Navbar.Brand href="#home">
                         <img
@@ -70,7 +70,7 @@ function PageNavbar() {
                                 Us</Nav.Link>
                             <Nav.Link href="/contact" className={currentPage === "/contact" ? "active" : ""}>Contact
                                 Us</Nav.Link>
-                            <Nav.Link href="/account" className={currentPage === "/account" ? "active" : ""}>My
+                            <Nav.Link href="/account" className={currentPage.startsWith("/account") ? "active" : ""}>My
                                 Account</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

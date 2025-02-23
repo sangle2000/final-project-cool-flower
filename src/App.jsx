@@ -10,6 +10,7 @@ import Footer from "./sections/Footer";
 import Store from "./pages/Store.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
+import Account from "./pages/Account.jsx";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/account/*" element={<Account />} />
       </Routes>
       <Footer />
       <ToastContainer pauseOnFocusLoss={false} draggable />
