@@ -7,10 +7,40 @@ function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        console.log("Email:", username)
+        console.log("Password:", password)
+
+        const response = await fetch("http://localhost:5000/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: `
+                    mutation {
+                      login(email: "${username}", password: "${password}") {
+                        user {
+                          id
+                          email
+                          token
+                        }
+                      }
+                    }
+                `
+            })
+        })
+
+        const result = await response.json();
+        console.log(result.data);
+    }
+
     return (
         <>
             <div className="form-container">
-                <form className="form">
+                <form className="form" onSubmit={(e) => handleLogin(e)}>
                     <div className="flex-column">
                         <label>Email </label></div>
                     <div className="inputForm">
