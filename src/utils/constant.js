@@ -24,3 +24,5 @@ export const teamMembers = [
         instagram: "https://www.facebook.com/sang.le.827748/",
     },
 ]
+
+export const api = "http://localhost:5000/graphql"

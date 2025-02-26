@@ -1,16 +1,38 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import postUserLogin from "../../app/account/login/postUserLogin.js";
+import {useDispatch, useSelector} from "react-redux";
 
 function Login() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const { status, error } = useSelector((state) => state.account)
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        dispatch(postUserLogin({ email, password }))
+    }
+
+    useEffect(() => {
+        switch (status) {
+            case "success":
+                navigate("/")
+                break;
+        }
+    }, [status, error])
+
     return (
         <>
             <div className="form-container">
-                <form className="form">
+                <form className="form" onSubmit={(e) => handleLogin(e)}>
                     <div className="flex-column">
                         <label>Email </label></div>
                     <div className="inputForm">
@@ -22,8 +44,8 @@ function Login() {
                         </svg>
                         <input
                             placeholder="Enter your Email"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="input"
                             type="email"
                             required

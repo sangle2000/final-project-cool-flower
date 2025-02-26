@@ -1,18 +1,40 @@
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import postUserSignUp from "../../app/account/signup/postUserSignUp.js";
 
 function SignUp() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const { status, error } = useSelector((state) => state.account)
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+
+        dispatch(postUserSignUp({ email, password }))
+    }
+
+    useEffect(() => {
+        switch (status) {
+            case "success":
+                navigate("/")
+                break;
+        }
+    }, [status, error])
+
     return (
         <>
             <div className="form-container">
-                <form className="form">
+                <form className="form" onSubmit={(e) => handleSignUp(e)}>
                     <div className="flex-column">
                         <label>Email </label></div>
                     <div className="inputForm">
@@ -26,8 +48,8 @@ function SignUp() {
                             placeholder="Enter your Email"
                             className="input"
                             type="email"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
