@@ -1,41 +1,33 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import postUserLogin from "../../app/account/login/postUserLogin.js";
+import {useDispatch, useSelector} from "react-redux";
 
 function Login() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const { status, error } = useSelector((state) => state.account)
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        console.log("Email:", username)
-        console.log("Password:", password)
-
-        const response = await fetch("http://localhost:5000/graphql", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                query: `
-                    mutation {
-                      login(email: "${username}", password: "${password}") {
-                        user {
-                          id
-                          email
-                          token
-                        }
-                      }
-                    }
-                `
-            })
-        })
-
-        const result = await response.json();
-        console.log(result.data);
+        dispatch(postUserLogin({ email, password }))
     }
+
+    useEffect(() => {
+        switch (status) {
+            case "success":
+                navigate("/")
+                break;
+        }
+    }, [status, error])
 
     return (
         <>
@@ -52,8 +44,8 @@ function Login() {
                         </svg>
                         <input
                             placeholder="Enter your Email"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="input"
                             type="email"
                             required

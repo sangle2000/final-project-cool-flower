@@ -4,10 +4,13 @@ import {useLocation} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import {useSelector} from "react-redux";
 
 function PageNavbar() {
     const [currentPage, setCurrentPage] = useState("");
     const [device, setDevice] = useState("");
+
+    const { name, wallet, isLogin } = useSelector((state) => state.account);
 
     const location = useLocation();
 
@@ -76,11 +79,14 @@ function PageNavbar() {
                     </Navbar.Collapse>
 
                     <div className="user-container">
-                        <span className="user-pricing">$0.00</span>
+                        <span className="user-pricing">{wallet.toLocaleString()} VNĐ</span>
                         <span className="user-cart">
                             <i className="bi bi-bag-fill user-cart-logo"></i>
                             <span className="user-cart-quantity">0</span>
                         </span>
+                        {
+                            isLogin ? <span>Hello, {name}</span> : ""
+                        }
 
                         {
                             device !== "Mobile" ?

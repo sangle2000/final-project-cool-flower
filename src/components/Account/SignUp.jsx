@@ -1,43 +1,35 @@
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import postUserSignUp from "../../app/account/signup/postUserSignUp.js";
 
 function SignUp() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const { status, error } = useSelector((state) => state.account)
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
     const handleSignUp = async (e) => {
         e.preventDefault();
 
-        console.log("Email:", username)
-        console.log("Password:", password)
-
-        const response = await fetch("http://localhost:5000/graphql", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                query: `
-                    mutation {
-                      signUp(email: "${username}", password: "${password}") {
-                        user {
-                          id
-                          email
-                          token
-                        }
-                      }
-                    }
-                `
-            })
-        })
-
-        const result = await response.json();
-        console.log(result.data);
+        dispatch(postUserSignUp({ email, password }))
     }
+
+    useEffect(() => {
+        switch (status) {
+            case "success":
+                navigate("/")
+                break;
+        }
+    }, [status, error])
 
     return (
         <>
@@ -56,8 +48,8 @@ function SignUp() {
                             placeholder="Enter your Email"
                             className="input"
                             type="email"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
