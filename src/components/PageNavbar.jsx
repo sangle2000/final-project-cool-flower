@@ -4,13 +4,26 @@ import {useLocation} from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import getUserProfile from "../app/account/getUserProfile.js";
+import {loginAccount} from "../app/account/accountSlice.js";
 
 function PageNavbar() {
     const [currentPage, setCurrentPage] = useState("");
     const [device, setDevice] = useState("");
 
-    const { name, wallet, isLogin } = useSelector((state) => state.account);
+    const { isLogin, wallet, name } = useSelector((state) => state.account);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            dispatch(loginAccount())
+            dispatch(getUserProfile({ token }))
+        }
+    }, [isLogin, wallet, name])
 
     const location = useLocation();
 
@@ -21,7 +34,10 @@ function PageNavbar() {
     useEffect(() => {
         const checkDevice = () => {
             const width = window.innerWidth;
-            if (width <= 991) {
+            if (width <= 721) {
+                setDevice("Small Mobile");
+            }
+            else if (width <= 991) {
                 setDevice("Mobile");
             } else {
                 setDevice("PC");
@@ -39,17 +55,17 @@ function PageNavbar() {
                 <Container>
                     <Navbar.Brand href="#home">
                         <img
-                            src="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/06/plants-store-logo-green.svg"
+                            src="/logo.jfif"
                             alt="Brand Logo"
                         />
 
-                        <span>Cool Flower</span>
+                        <span>Petals & You</span>
                     </Navbar.Brand>
 
                     <Navbar.Collapse
                         id="basic-navbar-nav"
                         style={
-                            device === "Mobile" ?
+                            device !== "PC" ?
                                 {
                                     position: "absolute",
                                     width: "100vw",
@@ -79,22 +95,26 @@ function PageNavbar() {
                     </Navbar.Collapse>
 
                     <div className="user-container">
-                        <span className="user-pricing">{wallet.toLocaleString()} VNĐ</span>
-                        <span className="user-cart">
+                        <span
+                            className="user-pricing"
+                        >
+                            {wallet} points
+                        </span>
+                        <span
+                            className="user-cart"
+                        >
                             <i className="bi bi-bag-fill user-cart-logo"></i>
                             <span className="user-cart-quantity">0</span>
                         </span>
                         {
-                            isLogin ? <span>Hello, {name}</span> : ""
-                        }
-
-                        {
-                            device !== "Mobile" ?
-                                <span>
-                                    <i className="bi bi-person-circle"></i>
+                            isLogin ?
+                                <span
+                                    style={device === "Small Mobile" ? {maxWidth: "75px", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis", fontSize: "0.8rem"} : {}}
+                                >
+                                    Hello, { name}
                                 </span> : ""
                         }
-                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" style={{width: "75px !important"}}/>
                     </div>
                 </Container>
             </Navbar>

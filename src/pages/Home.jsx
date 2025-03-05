@@ -1,7 +1,6 @@
 import Feature from "../components/Feature";
 import CollectionCard from "../components/Home/CollectionCard";
 import Feedback from "../components/Home/Feedback";
-import Header from "../components/Home/Header";
 import Helper from "../components/Helper";
 import HomeHeader from "../components/Home/Header";
 import Policy from "../components/Home/Policy.jsx";

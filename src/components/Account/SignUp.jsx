@@ -1,40 +1,64 @@
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import postUserSignUp from "../../app/account/signup/postUserSignUp.js";
+import {useMutation} from "@apollo/client";
+import {SIGNUP_MUTATION} from "../../utils/graphql/mutations.js";
+import Loading from "../../sections/Loading.jsx";
 
 function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const [errorSignUp, setErrorSignUp] = useState("");
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const { status, error } = useSelector((state) => state.account)
-
-    const dispatch = useDispatch();
+    const [signUp, { data, loading, error }] = useMutation(SIGNUP_MUTATION)
 
     const navigate = useNavigate();
 
     const handleSignUp = async (e) => {
         e.preventDefault();
 
-        dispatch(postUserSignUp({ email, password }))
+        try {
+            if (password === confirmPassword) {
+                await signUp({
+                    variables: { email, password }
+                })
+            } else {
+                setErrorSignUp("Confirm passwords don't match");
+            }
+        } catch (err) {
+            console.log("Mutation Error: ", err)
+        }
     }
 
     useEffect(() => {
-        switch (status) {
+        switch (data?.signUp.status) {
             case "success":
-                navigate("/")
+                localStorage.setItem("authToken", data.signUp.token);
+                navigate("/account/profile")
+                break;
+
+            case "error":
+                setErrorSignUp(data.signUp.errors[0])
                 break;
         }
-    }, [status, error])
+    }, [data])
 
     return (
         <>
             <div className="form-container">
+                <h1>
+                    Sign up
+                </h1>
                 <form className="form" onSubmit={(e) => handleSignUp(e)}>
+                    {
+                        errorSignUp ?
+                            <span style={{color: "red", fontWeight: "600"}}>{errorSignUp}</span> : ""
+                    }
+
                     <div className="flex-column">
                         <label>Email </label></div>
                     <div className="inputForm">
@@ -51,6 +75,7 @@ function SignUp() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            onFocus={() => setErrorSignUp("")}
                         />
                     </div>
 
@@ -70,6 +95,7 @@ function SignUp() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             type={showPassword ? "text" : "password"}
+                            onFocus={() => setErrorSignUp("")}
                         />
                         <div className="show-password" onClick={() => setShowPassword(!showPassword)}>
                             {
@@ -94,6 +120,7 @@ function SignUp() {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             type={showConfirmPassword ? "text" : "password"}
+                            onFocus={() => setErrorSignUp("")}
                         />
                         <div className="show-password" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                             {
@@ -110,6 +137,10 @@ function SignUp() {
                         </Link>
                     </p>
                 </form>
+
+                {
+                    loading ? <Loading /> : ""
+                }
             </div>
         </>
     )

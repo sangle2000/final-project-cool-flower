@@ -5,10 +5,10 @@ function Footer() {
         <div className="footer-content-container">
           <div className="brand-info">
             <img
-              src="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/06/plants-store-logo-green.svg"
+              src="/logo.jfif"
               alt="Brand Logo"
             />
-            <span>Simply Natural</span>
+            <span>Petals & You</span>
             <div>
               <i className="bi bi-facebook"></i>
               <i className="bi bi-twitter"></i>

@@ -1,12 +1,16 @@
 .navbar {
     position: fixed;
     width: 100vw;
-    background-color: transparent !important;
+    background-color: white !important;
 
     .container {
         position: relative;
         display: flex;
         justify-content: center;
+
+        @media screen and (max-width: 721px) {
+            padding: 0.5rem !important;
+        }
 
         .navbar-brand {
             display: flex;
@@ -15,14 +19,27 @@
             gap: 0.5rem;
             flex: 1;
 
+            @media screen and (max-width: 721px) {
+                gap: 0.20rem;
+                margin-right: 0.25rem;
+            }
+
             img {
-                width: 2.5rem;
+                width: 5rem;
+
+                @media screen and (max-width: 721px) {
+                    width: 2rem;
+                }
             }
 
             span {
                 font-size: 1.25rem;
                 font-weight: 600;
                 color: #2B2F38;
+
+                @media screen and (max-width: 721px) {
+                    font-size: 0.7rem;
+                }
             }
         }
 
@@ -32,19 +49,27 @@
             gap: 0.75rem;
             float: right;
 
+            @media screen and (max-width: 721px) {
+                gap: 0.5rem;
+            }
+
             .user-pricing {
                 color: #FA5F5F;
                 font-size: 1.1rem;
                 font-weight: 700;
 
-                @media screen and (max-width: 480px) {
-                    font-size: 1rem;
+                @media screen and (max-width: 721px) {
+                    font-size: 0.75rem;
                 }
             }
 
             .user-cart {
                 position: relative;
-                margin-right: 1rem;
+                margin-right: 0.5rem;
+
+                @media screen and (max-width: 721px) {
+                    font-size: 0.75rem;
+                }
 
                 &-logo {
                     color: #FA5F5F;
@@ -63,11 +88,40 @@
                     border-radius: 50%;
                     font-weight: 700;
                     font-size: 0.75rem;
+                    color: #fff;
+
+                    @media screen and (max-width: 721px) {
+                        width: 12px;
+                        height: 12px;
+                        top: -15%;
+                        right: -0.65rem;
+                        font-size: 0.5rem;
+                    }
+                }
+            }
+
+            .navbar-toggler {
+
+                @media screen and (max-width: 721px) {
+                    width: 2rem;
+                    height: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0;
+                }
+                .navbar-toggler-icon {
+
+                    @media screen and (max-width: 721px) {
+                        font-size: 0.5rem;
+                    }
                 }
             }
         }
 
         .navbar-collapse {
+            background-color: white !important;
+
             @media screen and (min-width: 721px) {
                 flex-grow: 0 !important;
             }

@@ -1,0 +1,86 @@
+.userprofile-container {
+  min-height: 75vh;
+  min-width: 100vw;
+
+  @media screen and (max-width: 720px) {
+    min-height: 50vh;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (min-width: 721px) and (max-width: 1024px) {
+    min-height: 50vh;
+    margin-bottom: 2rem;
+  }
+
+  .user-information-container {
+    min-width: 50vw;
+    border: none;
+
+    @media screen and (max-width: 1024px) {
+      min-width: 75vw;
+    }
+
+    .avatar-container {
+      img {
+        width: 12rem;
+        margin-top: 2rem;
+
+        @media screen and (max-width: 720px) {
+          width: 4rem;
+          margin-top: 1rem;
+        }
+
+        @media screen and (min-width: 721px) and (max-width: 1024px) {
+          width: 8rem;
+        }
+      }
+    }
+  }
+
+  h5 {
+    margin-top: 1rem;
+
+    @media screen and (max-width: 720px) {
+      margin-top: 0;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+  }
+
+  h3 {
+    @media screen and (max-width: 720px) {
+      font-size: 1rem;
+    }
+  }
+
+  p {
+    @media screen and (max-width: 720px) {
+      font-size: 0.85rem;
+    }
+  }
+
+  .button-container {
+    width: 25vw;
+
+    @media screen and (max-width: 720px) {
+      width: 50vw;
+    }
+
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+      width: 60vw;
+    }
+
+    button {
+      margin-top: 2rem;
+
+      @media screen and (max-width: 720px) {
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      @media screen and (min-width: 721px) and (max-width: 1024px) {
+        padding: 1rem;
+      }
+    }
+  }
+}

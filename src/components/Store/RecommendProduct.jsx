@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {Navigation, Pagination} from "swiper/modules";
-import FeedbackUserCard from "../Home/FeedbackUserCard.jsx";
 import {useEffect, useState} from "react";
 
 function RecommendProduct() {

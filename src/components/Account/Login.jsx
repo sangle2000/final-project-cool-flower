@@ -1,7 +1,10 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import postUserLogin from "../../app/account/login/postUserLogin.js";
-import {useDispatch, useSelector} from "react-redux";
+import {useMutation} from "@apollo/client";
+import {LOGIN_MUTATION} from "../../utils/graphql/mutations.js";
+import {useDispatch} from "react-redux";
+import {loginAccount} from "../../app/account/accountSlice.js";
+import Loading from "../../sections/Loading.jsx";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -9,7 +12,9 @@ function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
 
-    const { status, error } = useSelector((state) => state.account)
+    const [errorLogin, setErrorLogin] = useState("");
+
+    const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION)
 
     const dispatch = useDispatch();
 
@@ -18,21 +23,41 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        dispatch(postUserLogin({ email, password }))
+        try {
+            await login({
+                variables: { email, password }
+            })
+        } catch (err) {
+            console.log("Mutation Error: ", err)
+        }
     }
 
     useEffect(() => {
-        switch (status) {
+        switch (data?.login.status) {
             case "success":
+                localStorage.setItem("authToken", data.login.token);
+                dispatch(loginAccount())
                 navigate("/")
                 break;
+
+            case "error":
+                setErrorLogin(data.login.errors[0])
+                break;
         }
-    }, [status, error])
+    }, [data, error])
 
     return (
         <>
             <div className="form-container">
+                <h1>
+                    Login
+                </h1>
                 <form className="form" onSubmit={(e) => handleLogin(e)}>
+                    {
+                        errorLogin ?
+                        <span style={{color: "red", fontWeight: "600"}}>{errorLogin}</span> : ""
+                    }
+
                     <div className="flex-column">
                         <label>Email </label></div>
                     <div className="inputForm">
@@ -92,6 +117,10 @@ function Login() {
                         </Link>
                     </p>
                 </form>
+
+                {
+                    loading ? <Loading /> : ""
+                }
             </div>
         </>
     )

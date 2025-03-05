@@ -38,7 +38,6 @@
         }
 
         @media screen and (min-width: 721px) and (max-width: 1024px) {
-          justify-content: center;
           gap: 1rem;
           margin-bottom: 4rem;
         }
@@ -52,7 +51,7 @@
           width: calc(50% - 1rem);
 
           @media screen and (max-width: 1024px) {
-            justify-content: center;
+            justify-content: start;
             width: 100%;
           }
 

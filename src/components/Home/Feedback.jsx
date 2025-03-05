@@ -57,11 +57,33 @@ const userComment = [
             "Đây là sản phẩm tuyệt vời nhất mà tôi từng thấy, tôi sẽ tiếp tục ủng hộ shop này",
         rate: 5,
     },
+
+    {
+        id: 5,
+        name: "Sang Hân",
+        avatar:
+            "https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2019/01/user1-free-img.jpg",
+        comment:
+            "Đây là sản phẩm tuyệt vời nhất mà tôi từng thấy, tôi sẽ tiếp tục ủng hộ shop này",
+        rate: 5,
+    },
+
+    {
+        id: 6,
+        name: "Sang Hân",
+        avatar:
+            "https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2019/01/user1-free-img.jpg",
+        comment:
+            "Đây là sản phẩm tuyệt vời nhất mà tôi từng thấy, tôi sẽ tiếp tục ủng hộ shop này",
+        rate: 5,
+    },
 ];
 
 function Feedback() {
 
     const [swiperRef, setSwiperRef] = useState(null);
+    const [device, setDevice] = useState("");
+
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
@@ -75,6 +97,22 @@ function Feedback() {
 
         return () => clearTimeout(timer); // Cleanup on index change
     }, [activeIndex, swiperRef]);
+
+    useEffect(() => {
+        const checkDevice = () => {
+            const width = window.innerWidth;
+            if (width <= 1024) {
+                setDevice("Mobile");
+            }
+            else {
+                setDevice("PC");
+            }
+        };
+
+        checkDevice(); // Run on mount
+        window.addEventListener("resize", checkDevice);
+        return () => window.removeEventListener("resize", checkDevice);
+    }, []);
 
     return (
         <>
@@ -90,7 +128,7 @@ function Feedback() {
                     grabCursor={true}
                     centeredSlides={true}
                     loop={true}
-                    slidesPerView={'auto'}
+                    slidesPerView={device === "PC" ? 5 : 'auto'}
                     spaceBetween={0}
                     modules={[Navigation, Pagination]}
                 >
