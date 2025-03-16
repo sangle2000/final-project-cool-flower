@@ -1,0 +1,30 @@
+.cart-item-container {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 1rem;
+
+  .cart-item-image {
+    width: 4rem;
+  }
+
+  .cart-item-detail {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .close-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    border: 1px solid #dedede;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+}

@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import getUserProfile from "../app/account/getUserProfile.js";
 import {loginAccount} from "../app/account/accountSlice.js";
 
-function PageNavbar() {
+function PageNavbar({ setIsShowCart }) {
     const [currentPage, setCurrentPage] = useState("");
     const [device, setDevice] = useState("");
 
@@ -53,7 +53,7 @@ function PageNavbar() {
         <>
             <Navbar expand="lg" className="bg-body-tertiary" style={{ zIndex: 100, position: currentPage.startsWith("/account") ? "relative" : "fixed" }}>
                 <Container>
-                    <Navbar.Brand href="#home">
+                    <Navbar.Brand href="/">
                         <img
                             src="/logo.jfif"
                             alt="Brand Logo"
@@ -102,6 +102,7 @@ function PageNavbar() {
                         </span>
                         <span
                             className="user-cart"
+                            onClick={() => setIsShowCart(true)}
                         >
                             <i className="bi bi-bag-fill user-cart-logo"></i>
                             <span className="user-cart-quantity">0</span>

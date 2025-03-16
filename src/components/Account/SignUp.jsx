@@ -24,7 +24,8 @@ function SignUp() {
         try {
             if (password === confirmPassword) {
                 await signUp({
-                    variables: { email, password }
+                    variables
+                        : { email, password }
                 })
             } else {
                 setErrorSignUp("Confirm passwords don't match");

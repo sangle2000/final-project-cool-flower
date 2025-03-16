@@ -1,20 +1,22 @@
 import { gql } from "@apollo/client";
 
-export const PROFILE_QUERY = gql`
-  query ProfileQuery {
-    protectedData {
-      status
-      message
-      data {
-        id
-        email
-        name
-        phone
-        address
-        role
-        createdAt
-        wallet
+export const PRODUCT_QUERY = gql`
+  query {
+      productData{
+        status
+        message
+        data {
+          productCode
+          name
+          description
+          price
+          salePercent
+          stock
+          categoryId
+          productType
+          imageUrl
+          createdAt
+        }
       }
     }
-  }
 `;

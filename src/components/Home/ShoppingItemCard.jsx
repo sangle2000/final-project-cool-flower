@@ -41,13 +41,13 @@ function ShoppingItemCard({
           <i className="bi bi-star"></i>
         </div>
         <div className="item-card-detail-price">
-          {isSale && (
+          {isSale ? (
             <span className="item-card-detail-price-old">
-              ${oldPrice.toFixed(2)}
+              {oldPrice.toLocaleString("de-DE")} VNĐ
             </span>
-          )}
+          ) : ""}
           <span className="item-card-detail-price-current">
-            ${currentPrice.toFixed(2)}
+            {currentPrice.toLocaleString("de-DE")} VNĐ
           </span>
         </div>
 
@@ -56,7 +56,7 @@ function ShoppingItemCard({
         </button>
       </div>
 
-      {isSale && <span className="item-card-sale">Sale!</span>}
+      {isSale ? <span className="item-card-sale">Sale!</span> : ""}
     </div>
   );
 }

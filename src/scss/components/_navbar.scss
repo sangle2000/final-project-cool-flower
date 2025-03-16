@@ -66,6 +66,7 @@
             .user-cart {
                 position: relative;
                 margin-right: 0.5rem;
+                cursor: pointer;
 
                 @media screen and (max-width: 721px) {
                     font-size: 0.75rem;

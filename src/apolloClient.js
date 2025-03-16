@@ -5,6 +5,7 @@ import {api} from "./utils/constant.js";
 // Backend API endpoint
 const httpLink = createHttpLink({
     uri: api, // Replace with your backend URL
+    cache: new InMemoryCache()
 });
 
 // Middleware to add token to headers

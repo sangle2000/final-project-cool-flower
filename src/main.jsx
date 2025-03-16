@@ -6,14 +6,16 @@ import {Provider} from "react-redux";
 import store from "./app/store.js";
 import {ApolloProvider} from "@apollo/client";
 import client from "./apolloClient.js";
-
+import {ProductQueryProvider} from "./store/ProductQueryProvider.jsx";
 
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
         <ApolloProvider client={client}>
             <Provider store={store}>
-                <App />
+                <ProductQueryProvider>
+                    <App />
+                </ProductQueryProvider>
             </Provider>,
         </ApolloProvider>
     </BrowserRouter>
