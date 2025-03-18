@@ -14,6 +14,7 @@ import Account from "./pages/Account.jsx";
 import ProductDetail from "./components/ProductDetail.jsx";
 import CartDrawer from "./components/CartDrawer.jsx";
 import {useState} from "react";
+import CartView from "./components/CartView.jsx";
 
 function App() {
     const [isShowCart, setIsShowCart] = useState(false);
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/about" element={<About/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/account/*" element={<Account/>}/>
+                <Route path="/cart" element={<CartView/>}/>
                 <Route path="/product/:id" element={<ProductDetail/>}/>
             </Routes>
             <Footer/>

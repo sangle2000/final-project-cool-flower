@@ -4,12 +4,15 @@ import CartItem from "./CartItem.jsx";
 import {useQuery} from "@apollo/client";
 import {USER_CART_DATA_QUERY} from "../utils/graphql/queries.js";
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function CartDrawer({ isShowCart, setIsShowCart }) {
 
     const [cartItems, setCartItems] = useState([]);
 
     const { data, loading, error, refetch } = useQuery(USER_CART_DATA_QUERY)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!data) return;
@@ -76,7 +79,7 @@ function CartDrawer({ isShowCart, setIsShowCart }) {
                 </Offcanvas.Body>
 
                 <div className="flex flex-col ml-[0.5rem] mb-[1rem] gap-[1rem]">
-                    <Button variant="outline-dark" className="me-2">
+                    <Button variant="outline-dark" className="me-2" onClick={() => navigate("/cart")}>
                         View cart
                     </Button>
 

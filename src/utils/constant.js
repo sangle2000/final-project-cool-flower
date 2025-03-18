@@ -25,8 +25,8 @@ export const teamMembers = [
     },
 ]
 
-// export const api = "https://petalsandyou.com/api/graphql"
-export const api = "http://localhost:5000/api/graphql"
+export const api = "https://petalsandyou.com/api/graphql"
+// export const api = "http://localhost:5000/api/graphql"
 
 export const rankLevel = [
     {
