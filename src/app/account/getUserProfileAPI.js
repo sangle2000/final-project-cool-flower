@@ -20,6 +20,7 @@ const getUserProfileAPI = async ({ token }) => {
                             role
                             createdAt
                             wallet
+                            itemInCart
                           }
                         }
                       }

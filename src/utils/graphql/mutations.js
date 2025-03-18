@@ -30,3 +30,21 @@ export const UPDATE_PROFILE_MUTATION = gql`
     }
   }
 `;
+
+export const ADD_ITEM_TO_CART = gql`
+    mutation AddItemToCart($productId: Int!, $quantity: Int!) {
+        addItemToCart(productId: $productId, quantity: $quantity) {
+          status
+          errors
+        }
+  }
+`
+
+export const DELETE_ITEM_IN_CART = gql`
+    mutation DeleteItemInCart($productId: Int!) {
+      deleteItemInCart (productId: $productId) {
+        status
+        errors
+      }
+    }
+`

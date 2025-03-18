@@ -6,6 +6,7 @@ export const PRODUCT_QUERY = gql`
         status
         message
         data {
+          id
           productCode
           name
           description
@@ -20,3 +21,21 @@ export const PRODUCT_QUERY = gql`
       }
     }
 `;
+
+export const USER_CART_DATA_QUERY = gql`
+    query {
+      userCartData {
+        status
+        message
+        data {
+          id
+          productCode
+          name
+          price
+          salePercent
+          quantity
+          imageUrl
+        }
+      }
+    }
+`

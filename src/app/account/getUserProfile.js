@@ -14,6 +14,8 @@ const getUserProfile = createAsyncThunk(
             }
 
             // const data = responseData.data.protectedData.data
+            //
+            // console.log(data)
 
             return responseData.data.protectedData.data;
         } catch (err) {

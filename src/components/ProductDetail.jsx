@@ -3,6 +3,11 @@ import {useEffect, useState} from "react";
 import {useProductQuery} from "../store/ProductQueryProvider.jsx";
 import Loading from "../sections/Loading.jsx";
 import Button from "react-bootstrap/Button";
+import {useMutation} from "@apollo/client";
+import {ADD_ITEM_TO_CART} from "../utils/graphql/mutations.js";
+import getUserProfile from "../app/account/getUserProfile.js";
+import {useDispatch} from "react-redux";
+import {toast} from "react-toastify";
 
 function ProductDetail() {
     const { id } = useParams();
@@ -13,7 +18,19 @@ function ProductDetail() {
     const [products, setProducts] = useState([]);
     const [productInformation, setProductInformation] = useState({});
 
+    const dispatch = useDispatch();
+
     const { loading, error, data } = useProductQuery();
+
+    const [addItemToCart] = useMutation(ADD_ITEM_TO_CART, {
+        onCompleted: () => {
+            const token = localStorage.getItem("authToken");
+
+            if (token) {
+                dispatch(getUserProfile({ token }))
+            }
+        }
+    })
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -30,8 +47,34 @@ function ProductDetail() {
             return product.productCode === id
         })
 
+        console.log(product_detail)
+
         setProductInformation(product_detail)
     }, [products, id]);
+
+    const handleAddItemToCart = async (product_id, name) => {
+        toast.success(`Add ${name} successfully!!!`, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+
+        try {
+            await addItemToCart({
+                variables: {
+                    productId: product_id,
+                    quantity
+                }
+            })
+        } catch (e) {
+            throw new Error(e)
+        }
+    }
 
     return (
         <>
@@ -69,7 +112,7 @@ function ProductDetail() {
                                     <input type="number" value={quantity.toString()}
                                            onChange={(e) => setQuantity(Math.max(0, Number(e.target.value)))}/>
 
-                                    <span>
+                                    <span onClick={() => handleAddItemToCart(productInformation.id, productInformation.name)}>
                                         Add to cart
                                     </span>
                                 </div>

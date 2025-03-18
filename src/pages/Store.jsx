@@ -31,11 +31,12 @@ function Store() {
                 <div className="product-content">
                     {
                         products && products.length > 0 &&
-                        products.map((product, index) => {
+                        products.map((product) => {
                             return (
                                 <ShoppingItemCard
+                                    id={product.id}
                                     code={product.productCode}
-                                    key={index}
+                                    key={product.id}
                                     image={product.imageUrl}
                                     name={product.name}
                                     type={product.productType}

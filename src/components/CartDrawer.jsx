@@ -1,26 +1,27 @@
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {useState} from "react";
 import Button from "react-bootstrap/Button";
 import CartItem from "./CartItem.jsx";
+import {useQuery} from "@apollo/client";
+import {USER_CART_DATA_QUERY} from "../utils/graphql/queries.js";
+import {useEffect, useState} from "react";
 
 function CartDrawer({ isShowCart, setIsShowCart }) {
 
-    const cartItemList = [
-        {
-            id: 0,
-            name: "Resin night light (Origin - ALD)",
-            image: "https://imgur.com/7v6usuI.jpg",
-            price: 1200000,
-            quantity: 1,
-        },
-        {
-            id: 1,
-            name: "Resin night light (Origin - ALH)",
-            image: "https://imgur.com/NSEzToO.jpg",
-            price: 1200000,
-            quantity: 1,
-        }
-    ]
+    const [cartItems, setCartItems] = useState([]);
+
+    const { data, loading, error, refetch } = useQuery(USER_CART_DATA_QUERY)
+
+    useEffect(() => {
+        if (!data) return;
+
+        setCartItems(data.userCartData.data);
+    }, [data, isShowCart]);
+
+    useEffect(() => {
+        if (!isShowCart) return;
+
+        refetch()
+    }, [isShowCart])
 
     return (
         <>
@@ -36,36 +37,50 @@ function CartDrawer({ isShowCart, setIsShowCart }) {
                 <Offcanvas.Body className="flex flex-col">
                     <div className="flex-1 flex flex-col gap-2">
                         {
-                            cartItemList.map((cartItem) => {
+                            cartItems.length === 0 ?
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <span className="text-[#61656b]">You have no item in cart</span>
+                                </div>
+                                :
+                                cartItems.map((cartItem) => {
                                 return (
                                     <CartItem
                                         key={cartItem.id}
+                                        id={cartItem.id}
                                         name={cartItem.name}
-                                        image={cartItem.image}
-                                        price={cartItem.price}
+                                        image={cartItem.imageUrl}
+                                        price={cartItem.price - (cartItem.price * cartItem.salePercent)}
                                         quantity={cartItem.quantity}
+                                        refetch={refetch}
                                     />
                                 )
                             })
                         }
                     </div>
 
-                    <div>
-                        Subtotal: {
-                        cartItemList.reduce((acc, cartItem) => {
-                            return acc + cartItem.price * cartItem.quantity;
-                        }, 0).toLocaleString("de-DE")
-                    } VNĐ
+                    <div className="flex justify-between pt-[1rem] pb-[1rem] border-t border-b border-[#ccc]">
+                        <span className="font-[700]">
+                            Subtotal:
+                        </span>
+
+                        <span className="font-[700] text-[#61656b]">
+                            {
+                                cartItems.reduce((acc, cartItem) => {
+                                    return acc + (cartItem.price - (cartItem.price * cartItem.salePercent)) * cartItem.quantity;
+                                }, 0).toLocaleString("de-DE")
+                            } VNĐ
+                        </span>
+
                     </div>
 
                 </Offcanvas.Body>
 
-                <div>
-                    <Button variant="primary" className="me-2">
+                <div className="flex flex-col ml-[0.5rem] mb-[1rem] gap-[1rem]">
+                    <Button variant="outline-dark" className="me-2">
                         View cart
                     </Button>
 
-                    <Button variant="primary" className="me-2">
+                    <Button variant="outline-dark" className="me-2">
                         Checkout
                     </Button>
                 </div>

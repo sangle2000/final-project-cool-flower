@@ -25,11 +25,12 @@ function Feature() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </span>
         <div className="feature-item-card-container">
-          {saleProducts.map((product, index) => {
+          {saleProducts.map((product) => {
             return (
               <ShoppingItemCard
+                id={product.id}
                 code={product.productCode}
-                key={index}
+                key={product.id}
                 image={product.imageUrl}
                 name={product.name}
                 type={product.productType}

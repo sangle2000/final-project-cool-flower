@@ -12,7 +12,7 @@ function PageNavbar({ setIsShowCart }) {
     const [currentPage, setCurrentPage] = useState("");
     const [device, setDevice] = useState("");
 
-    const { isLogin, wallet, name } = useSelector((state) => state.account);
+    const { isLogin, wallet, name, item_in_cart } = useSelector((state) => state.account);
 
     const dispatch = useDispatch();
 
@@ -105,7 +105,7 @@ function PageNavbar({ setIsShowCart }) {
                             onClick={() => setIsShowCart(true)}
                         >
                             <i className="bi bi-bag-fill user-cart-logo"></i>
-                            <span className="user-cart-quantity">0</span>
+                            <span className="user-cart-quantity">{item_in_cart}</span>
                         </span>
                         {
                             isLogin ?

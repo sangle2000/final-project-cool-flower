@@ -11,6 +11,7 @@ const initialState = {
     "createAt": null,
     "wallet": 0,
     "phone": null,
+    "item_in_cart": null,
     "isLogin": false,
     "error": null
 }
@@ -52,6 +53,7 @@ const accountSlice = createSlice({
                 state.role = action.payload.role;
                 state.createAt = action.payload.createAt;
                 state.wallet = action.payload.wallet;
+                state.item_in_cart = action.payload.itemInCart;
             })
             .addCase(getUserProfile.rejected, (state) => {
                 state.status = "error"
