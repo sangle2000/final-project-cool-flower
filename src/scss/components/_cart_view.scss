@@ -5,72 +5,149 @@
   justify-content: center;
   align-items: center;
   background-color: #fafafa;
+  padding: 4rem 0.5rem;
 
   .cart-view-container {
     min-width: 75%;
     background-color: #fff;
     padding: 4rem;
     position: relative;
+    margin-top: 4rem;
 
-    .button {
-      position: relative;
-      border-radius: 6px;
-      width: 150px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      border: 1px solid #cc0000;
-      background-color: #e50000;
-      overflow: hidden;
+    @media screen and (max-width: 720px) {
+      padding: 1rem;
+      margin-top: 2rem;
+      min-width: 100%;
     }
 
-    .button,
-    .button__icon,
-    .button__text {
-      transition: all 0.3s;
+    @media screen and (min-width: 721px) and (max-width: 1024px) {
+      padding: 1rem;
     }
 
-    .button .button__text {
-      transform: translateX(35px);
-      color: #fff;
-      font-weight: 600;
+    .cart-view-pc {
+      .button {
+        position: relative;
+        border-radius: 6px;
+        width: 150px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #cc0000;
+        background-color: #e50000;
+        overflow: hidden;
+      }
+
+      .button,
+      .button__icon,
+      .button__text {
+        transition: all 0.3s;
+      }
+
+      .button .button__text {
+        transform: translateX(35px);
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .button .button__icon {
+        position: absolute;
+        transform: translateX(109px);
+        height: 100%;
+        width: 39px;
+        background-color: #cc0000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .button .svg {
+        width: 20px;
+      }
+
+      .button:hover {
+        background: #cc0000;
+      }
+
+      .button:hover .button__text {
+        color: transparent;
+      }
+
+      .button:hover .button__icon {
+        width: 148px;
+        transform: translateX(0);
+      }
+
+      .button:active .button__icon {
+        background-color: #b20000;
+      }
+
+      .button:active {
+        border: 1px solid #b20000;
+      }
     }
 
-    .button .button__icon {
-      position: absolute;
-      transform: translateX(109px);
-      height: 100%;
-      width: 39px;
-      background-color: #cc0000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .cart-view-mb {
+      .button {
+        position: relative;
+        border-radius: 6px;
+        width: 150px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #cc0000;
+        background-color: #e50000;
+        overflow: hidden;
+      }
 
-    .button .svg {
-      width: 20px;
-    }
+      .button,
+      .button__icon,
+      .button__text {
+        transition: all 0.3s;
+      }
 
-    .button:hover {
-      background: #cc0000;
-    }
+      .button .button__text {
+        transform: translateX(35px);
+        color: #fff;
+        font-weight: 600;
+      }
 
-    .button:hover .button__text {
-      color: transparent;
-    }
+      .button .button__icon {
+        position: absolute;
+        transform: translateX(109px);
+        height: 100%;
+        width: 39px;
+        background-color: #cc0000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .button:hover .button__icon {
-      width: 148px;
-      transform: translateX(0);
-    }
+      .button .svg {
+        width: 20px;
+      }
 
-    .button:active .button__icon {
-      background-color: #b20000;
-    }
+      .button:focus {
+        background: #cc0000;
+      }
 
-    .button:active {
-      border: 1px solid #b20000;
+      .button:focus .button__text {
+        color: transparent;
+      }
+
+      .button:focus .button__icon {
+        width: 148px;
+        transform: translateX(0);
+      }
+
+      .button:active .button__icon {
+        background-color: #b20000;
+      }
+
+      .button:active {
+        border: 1px solid #b20000;
+      }
     }
   }
 }

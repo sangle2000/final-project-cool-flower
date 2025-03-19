@@ -7,15 +7,20 @@ import store from "./app/store.js";
 import {ApolloProvider} from "@apollo/client";
 import client from "./apolloClient.js";
 import {ProductQueryProvider} from "./store/ProductQueryProvider.jsx";
-
+import {DeviceCheckedProvider} from "./store/DeviceCheckedProvider.jsx";
+import {UserCartProvider} from "./store/UserCartProvider.jsx";
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
         <ApolloProvider client={client}>
             <Provider store={store}>
-                <ProductQueryProvider>
-                    <App />
-                </ProductQueryProvider>
+                <DeviceCheckedProvider>
+                    <ProductQueryProvider>
+                        <UserCartProvider>
+                            <App />
+                        </UserCartProvider>
+                    </ProductQueryProvider>
+                </DeviceCheckedProvider>
             </Provider>,
         </ApolloProvider>
     </BrowserRouter>

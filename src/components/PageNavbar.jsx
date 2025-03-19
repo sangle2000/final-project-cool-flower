@@ -7,12 +7,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import {useDispatch, useSelector} from "react-redux";
 import getUserProfile from "../app/account/getUserProfile.js";
 import {loginAccount} from "../app/account/accountSlice.js";
+import {useDeviceChecked} from "../store/DeviceCheckedProvider.jsx";
 
 function PageNavbar({ setIsShowCart }) {
     const [currentPage, setCurrentPage] = useState("");
-    const [device, setDevice] = useState("");
 
     const { isLogin, wallet, name, item_in_cart } = useSelector((state) => state.account);
+
+    const device = useDeviceChecked()
 
     const dispatch = useDispatch();
 
@@ -30,24 +32,6 @@ function PageNavbar({ setIsShowCart }) {
     useEffect(() => {
         setCurrentPage(location.pathname);
     }, [location]);
-
-    useEffect(() => {
-        const checkDevice = () => {
-            const width = window.innerWidth;
-            if (width <= 721) {
-                setDevice("Small Mobile");
-            }
-            else if (width <= 991) {
-                setDevice("Mobile");
-            } else {
-                setDevice("PC");
-            }
-        };
-
-        checkDevice(); // Run on mount
-        window.addEventListener("resize", checkDevice);
-        return () => window.removeEventListener("resize", checkDevice);
-    }, []);
 
     return (
         <>
@@ -105,7 +89,7 @@ function PageNavbar({ setIsShowCart }) {
                             onClick={() => setIsShowCart(true)}
                         >
                             <i className="bi bi-bag-fill user-cart-logo"></i>
-                            <span className="user-cart-quantity">{item_in_cart}</span>
+                            <span className="user-cart-quantity">{isLogin ? item_in_cart : 0}</span>
                         </span>
                         {
                             isLogin ?
