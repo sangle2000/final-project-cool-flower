@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {useDeviceChecked} from "../store/DeviceCheckedProvider.jsx";
 import {useUserCart} from "../store/UserCartProvider.jsx";
+import {Link} from "react-router-dom";
 
 function CartView() {
     const [cartItemList, setCartItemList] = useState([]);
@@ -110,11 +111,25 @@ function CartView() {
                                                                 {index + 1}
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                                <img style={{maxWidth: "4rem"}} src={cartItem.imageUrl}
-                                                                     alt={cartItem.name}/>
+                                                                <Link to={`/product/${cartItem.id}`}>
+                                                                    <img style={{maxWidth: "4rem"}}
+                                                                         src={cartItem.imageUrl}
+                                                                         alt={cartItem.name}/>
+                                                                </Link>
+
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                                {cartItem.name}
+                                                                <Link
+                                                                    to={`/product/${cartItem.id}`}
+                                                                    style={{
+                                                                        color: "#000",
+                                                                        textDecoration: "none"
+                                                                    }}
+                                                                >
+                                                                    <span>
+                                                                        {cartItem.name}
+                                                                    </span>
+                                                                </Link>
                                                             </TableCell>
                                                             <TableCell align="center">
                                                                 {(cartItem.price - cartItem.price * cartItem.salePercent).toLocaleString("de-DE")} VNĐ
@@ -349,25 +364,39 @@ function CartView() {
                                                 <TableBody>
                                                     <TableRow className="border">
                                                         <TableCell align="center">
-                                                            <img
-                                                                style={{
-                                                                    maxWidth: "4rem"
-                                                                }}
-                                                                src={cartItem.imageUrl}
-                                                                alt={cartItem.name}
-                                                            />
+                                                            <Link to={`/product/${cartItem.id}`}>
+                                                                <img
+                                                                    style={{
+                                                                        maxWidth: "4rem",
+                                                                    }}
+                                                                    src={cartItem.imageUrl}
+                                                                    alt={cartItem.name}
+                                                                />
+                                                            </Link>
                                                         </TableCell>
                                                     </TableRow>
 
                                                     <TableRow className="border">
-                                                        <TableCell style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                        <TableCell style={{
+                                                            display: "flex",
+                                                            justifyContent: "space-between",
+                                                            alignItems: "center"
+                                                        }}>
                                                             <span style={{ fontSize: "1rem", fontWeight: "700", width: "50%" }}>
                                                                 Name
                                                             </span>
 
-                                                            <span>
-                                                                { cartItem.name }
-                                                            </span>
+                                                            <Link
+                                                                to={`/product/${cartItem.id}`}
+                                                                style={{
+                                                                    color: "#000",
+                                                                    textDecoration: "none"
+                                                                }}
+                                                            >
+                                                                    <span>
+                                                                        {cartItem.name}
+                                                                    </span>
+                                                            </Link>
                                                         </TableCell>
                                                     </TableRow>
 

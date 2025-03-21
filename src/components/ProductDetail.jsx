@@ -43,8 +43,10 @@ function ProductDetail() {
     }, [data]);
 
     useEffect(() => {
+        console.log(products)
+
         const product_detail = products.find((product) => {
-            return product.productCode === id
+            return product.id === Number(id)
         })
 
         console.log(product_detail)

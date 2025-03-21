@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {useMutation} from "@apollo/client";
 import {ADD_ITEM_TO_CART} from "../../utils/graphql/mutations.js";
-import {loginAccount} from "../../app/account/accountSlice.js";
 import getUserProfile from "../../app/account/getUserProfile.js";
 import {useDispatch} from "react-redux";
 
@@ -58,7 +57,7 @@ function ShoppingItemCard({
 
   return (
     <div className="item-card-container">
-      <img src={image} alt="Item Image" className="item-card-image" onClick={() => {navigate(`/product/${code}`)}}/>
+      <img src={image} alt="Item Image" className="item-card-image" onClick={() => {navigate(`/product/${id}`)}}/>
       <div className="item-card-detail">
         <span className="item-card-detail-type">{type}</span>
         <span className="item-card-detail-name">{name}</span>
@@ -70,11 +69,13 @@ function ShoppingItemCard({
           <i className="bi bi-star"></i>
         </div>
         <div className="item-card-detail-price">
-          {isSale ? (
-            <span className="item-card-detail-price-old">
-              {oldPrice.toLocaleString("de-DE")} VNĐ
-            </span>
-          ) : ""}
+          <div className="item-card-detail-price-old">
+            { isSale ?
+              <span>
+                {oldPrice.toLocaleString("de-DE")} VNĐ
+              </span> : <span></span>
+            }
+          </div>
           <span className="item-card-detail-price-current">
             {currentPrice.toLocaleString("de-DE")} VNĐ
           </span>
@@ -85,7 +86,7 @@ function ShoppingItemCard({
         </button>
       </div>
 
-      {isSale ? <span className="item-card-sale">Sale!</span> : ""}
+      {isSale ? <div className="item-card-sale"><span>Sale</span></div> : ""}
     </div>
   );
 }

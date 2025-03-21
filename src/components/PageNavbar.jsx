@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -70,13 +70,18 @@ function PageNavbar({ setIsShowCart }) {
         <>
             <Navbar ref={navRef} expand="lg" className="bg-body-tertiary" style={{ zIndex: 100, position: currentPage.startsWith("/account") ? "relative" : "fixed" }}>
                 <Container>
-                    <Navbar.Brand href="/">
-                        <img
-                            src="/logo.jfif"
-                            alt="Brand Logo"
-                        />
+                    <Navbar.Brand>
+                        <Link to="/" style={{ textDecoration: "none" }}>
+                            <img
+                                src="/logo.jfif"
+                                alt="Brand Logo"
+                                style={{
+                                    marginRight: "0.5rem"
+                                }}
+                            />
 
-                        <span>Petals & You</span>
+                            <span>Petals & You</span>
+                        </Link>
                     </Navbar.Brand>
 
                     <Navbar.Collapse
@@ -149,6 +154,11 @@ function PageNavbar({ setIsShowCart }) {
                 spaceBetween={0}
                 modules={[Navigation, Pagination]}
                 simulateTouch={false}
+                style={{
+                    display: currentPage.startsWith("/account") ||
+                    currentPage.startsWith("/cart") ||
+                    currentPage.startsWith("/product") ? "none" : "block",
+                }}
             >
                 {
                     bannerImages.map((banner, index) => {
