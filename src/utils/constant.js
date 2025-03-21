@@ -55,3 +55,8 @@ export const rankLevel = [
         rankName: "Diamond"
     }
 ]
+
+export const bannerImages = [
+    "Brand Opening Banner.png",
+    "Buy 2 Get 1 Banner.png"
+]

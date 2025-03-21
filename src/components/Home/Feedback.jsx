@@ -81,22 +81,22 @@ const userComment = [
 
 function Feedback() {
 
-    const [swiperRef, setSwiperRef] = useState(null);
+    const [swiper, setSwiper] = useState(null);
     const [device, setDevice] = useState("");
 
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
-        if (!swiperRef) return;
+        if (!swiper) return;
 
         const timer = setInterval(() => {
-            if (swiperRef.activeIndex === activeIndex) {
-                swiperRef.slideNext(); // Move to next slide after 5s of inactivity
+            if (swiper.activeIndex === activeIndex) {
+                swiper.slideNext(); // Move to next slide after 5s of inactivity
             }
         }, 5000);
 
         return () => clearTimeout(timer); // Cleanup on index change
-    }, [activeIndex, swiperRef]);
+    }, [activeIndex, swiper]);
 
     useEffect(() => {
         const checkDevice = () => {
@@ -122,7 +122,7 @@ function Feedback() {
                 </h1>
 
                 <Swiper
-                    onSwiper={setSwiperRef}
+                    onSwiper={setSwiper}
                     onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
                     effect={'slide'}
                     grabCursor={true}

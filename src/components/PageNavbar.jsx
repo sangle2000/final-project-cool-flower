@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
@@ -8,15 +8,38 @@ import {useDispatch, useSelector} from "react-redux";
 import getUserProfile from "../app/account/getUserProfile.js";
 import {loginAccount} from "../app/account/accountSlice.js";
 import {useDeviceChecked} from "../store/DeviceCheckedProvider.jsx";
+import {Navigation, Pagination} from "swiper/modules";
+import {bannerImages} from "../utils/constant.js";
+import {Swiper, SwiperSlide} from "swiper/react";
 
 function PageNavbar({ setIsShowCart }) {
     const [currentPage, setCurrentPage] = useState("");
 
     const { isLogin, wallet, name, item_in_cart } = useSelector((state) => state.account);
 
+    const [swiper, setSwiper] = useState(null);
+
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const [navHeight, setNavHeight] = useState(0);
+
+    const navRef = useRef(null);
+
     const device = useDeviceChecked()
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!swiper) return;
+
+        const timer = setInterval(() => {
+            if (swiper.activeIndex === activeIndex) {
+                swiper.slideNext(); // Move to next slide after 5s of inactivity
+            }
+        }, 5000);
+
+        return () => clearTimeout(timer); // Cleanup on index change
+    }, [activeIndex, swiper]);
 
     useEffect(() => {
         const token = localStorage.getItem("authToken");
@@ -27,6 +50,16 @@ function PageNavbar({ setIsShowCart }) {
         }
     }, [isLogin, wallet, name])
 
+    useEffect(() => {
+        if (navRef.current) {
+            setNavHeight(navRef.current.offsetHeight);
+        }
+    }, [navRef.current?.offsetHeight]);
+
+    useEffect(() => {
+        console.log("Nav Height:", navHeight)
+    }, [navHeight])
+
     const location = useLocation();
 
     useEffect(() => {
@@ -35,7 +68,7 @@ function PageNavbar({ setIsShowCart }) {
 
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary" style={{ zIndex: 100, position: currentPage.startsWith("/account") ? "relative" : "fixed" }}>
+            <Navbar ref={navRef} expand="lg" className="bg-body-tertiary" style={{ zIndex: 100, position: currentPage.startsWith("/account") ? "relative" : "fixed" }}>
                 <Container>
                     <Navbar.Brand href="/">
                         <img
@@ -103,6 +136,37 @@ function PageNavbar({ setIsShowCart }) {
                     </div>
                 </Container>
             </Navbar>
+
+            <Swiper
+                onSwiper={setSwiper}
+                onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+                effect={'slide'}
+                grabCursor={false} // Disable grab cursor
+                allowTouchMove={false} // Disable touch/mouse dragging
+                centeredSlides={true}
+                loop={true}
+                slidesPerView={1}
+                spaceBetween={0}
+                modules={[Navigation, Pagination]}
+                simulateTouch={false}
+            >
+                {
+                    bannerImages.map((banner, index) => {
+                        return (
+                            <SwiperSlide key={index}>
+                                <img
+                                    src={banner}
+                                    alt={"Banner"}
+                                    style={{
+                                        width: "100%",
+                                        marginTop: `${navHeight}px`
+                                    }}
+                                />
+                            </SwiperSlide>
+                        )
+                    })
+                }
+            </Swiper>
         </>
     );
 }

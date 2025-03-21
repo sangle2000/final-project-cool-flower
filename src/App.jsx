@@ -1,4 +1,4 @@
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useLocation} from "react-router-dom";
 import Home from "./pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -13,11 +13,17 @@ import Contact from "./pages/Contact.jsx";
 import Account from "./pages/Account.jsx";
 import ProductDetail from "./components/ProductDetail.jsx";
 import CartDrawer from "./components/CartDrawer.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CartView from "./components/CartView.jsx";
 
 function App() {
     const [isShowCart, setIsShowCart] = useState(false);
+
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsShowCart(false)
+    }, [location]);
 
     return (
         <>

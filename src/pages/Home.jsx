@@ -2,7 +2,7 @@ import Feature from "../components/Feature";
 import CollectionCard from "../components/Home/CollectionCard";
 import Feedback from "../components/Home/Feedback";
 import Helper from "../components/Helper";
-import HomeHeader from "../components/Home/Header";
+// import HomeHeader from "../components/Home/Header";
 import Policy from "../components/Home/Policy.jsx";
 import HomeFooter from "../components/HomeFooter.jsx";
 
@@ -35,7 +35,7 @@ const data = [
 function Home() {
   return (
     <>
-      <HomeHeader image="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg" />
+      {/*<HomeHeader image="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg" />*/}
 
       <Policy />
 

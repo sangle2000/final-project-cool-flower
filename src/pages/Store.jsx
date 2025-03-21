@@ -1,4 +1,4 @@
-import Header from "../components/Store/Header.jsx";
+// import Header from "../components/Store/Header.jsx";
 import RecommendProduct from "../components/Store/RecommendProduct.jsx";
 import Helper from "../components/Helper.jsx";
 import {useProductQuery} from "../store/ProductQueryProvider.jsx";
@@ -19,7 +19,7 @@ function Store() {
 
     return (
         <>
-            <Header image="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/store-bg.jpg" />
+            {/*<Header image="https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/store-bg.jpg" />*/}
 
             <RecommendProduct />
 

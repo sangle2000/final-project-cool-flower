@@ -20,18 +20,22 @@ function CartView() {
     const device = useDeviceChecked()
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
+    useEffect(() => {
         if (!userCart) return;
 
         setCartItemList(userCart)
     }, [userCart])
 
-    const handleDeleteItem = (product_id) => {
-
-    }
-
-    const handleUpdateUserCart = () => {
-
-    }
+    // const handleDeleteItem = (product_id) => {
+    //
+    // }
+    //
+    // const handleUpdateUserCart = () => {
+    //
+    // }
 
     return (
         <>
@@ -47,13 +51,13 @@ function CartView() {
                                 <Table sx={{minWidth: 650}} aria-label="simple table">
                                     <caption>
                                         <Box className="flex justify-between">
-                                            <div className="flex items-center gap-[1rem]">
+                                            <div className="flex items-center justify-center gap-[1rem]">
                                                 <input
                                                     type="text"
                                                     placeholder="Coupon code"
                                                     style={{
                                                         padding: "0.5rem 0.75rem",
-                                                        textTransform: "uppercase"
+                                                        textTransform: "uppercase",
                                                     }}
                                                 />
 
@@ -63,7 +67,7 @@ function CartView() {
                                                         padding: "0.75rem 1.5rem",
                                                         textTransform: "uppercase",
                                                         fontSize: "0.8rem",
-                                                        fontWeight: "700"
+                                                        fontWeight: "700",
                                                     }}
                                                 >
                                                     Apply coupon
@@ -157,7 +161,11 @@ function CartView() {
 
                                                                 <Box display="flex" justifyContent="center"
                                                                      alignItems="center">
-                                                                    <button className="button" type="button" onClick={() => handleDeleteItem(index)}>
+                                                                    <button
+                                                                        className="button"
+                                                                        type="button"
+                                                                        // onClick={() => handleDeleteItem(index)}
+                                                                    >
                                                                         <span className="button__text">Delete</span>
                                                                         <span className="button__icon">
                                                                           <svg
@@ -353,7 +361,7 @@ function CartView() {
 
                                                     <TableRow className="border">
                                                         <TableCell style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                                            <span style={{ fontSize: "1rem", fontWeight: "700" }}>
+                                                            <span style={{ fontSize: "1rem", fontWeight: "700", width: "50%" }}>
                                                                 Name
                                                             </span>
 
@@ -385,7 +393,7 @@ function CartView() {
                                                                 Quantity
                                                             </span>
                                                             <input
-                                                                style={{width: "4rem", padding: "0.5rem 0.5rem"}}
+                                                                style={{width: "4rem", padding: "0.5rem 0.5rem", border: "1px solid #000"}}
                                                                 type="number"
                                                                 value={cartItem.quantity === 0 ? (isNaN(cartItem.quantity) ? "" : cartItem.quantity) : cartItem.quantity}
                                                                 onChange={(e) => {
@@ -439,7 +447,11 @@ function CartView() {
                                                         <TableCell align="center">
                                                             <Box display="flex" justifyContent="center"
                                                                  alignItems="center">
-                                                                <button className="button" type="button" onClick={() => handleDeleteItem(index)}>
+                                                                <button
+                                                                    className="button"
+                                                                    type="button"
+                                                                    // onClick={() => handleDeleteItem(index)}
+                                                                >
                                                                     <span className="button__text">Delete</span>
                                                                     <span className="button__icon">
                                                                       <svg
@@ -544,7 +556,9 @@ function CartView() {
                                                     style={{
                                                         padding: "0.5rem 0.25rem",
                                                         textTransform: "uppercase",
-                                                        fontSize: "0.75rem"
+                                                        fontSize: "0.75rem",
+                                                        flex: "1",
+                                                        border: "1px solid #000"
                                                     }}
                                                 />
 
@@ -554,7 +568,8 @@ function CartView() {
                                                         padding: "0.5rem 1rem",
                                                         textTransform: "uppercase",
                                                         fontSize: "0.75rem",
-                                                        fontWeight: "700"
+                                                        fontWeight: "700",
+                                                        flex: "1"
                                                     }}
                                                 >
                                                     Apply coupon
