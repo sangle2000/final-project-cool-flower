@@ -1,13 +1,10 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useProductQuery} from "../store/ProductQueryProvider.jsx";
-import Loading from "../sections/Loading.jsx";
 import Button from "react-bootstrap/Button";
-import {useMutation} from "@apollo/client";
-import {ADD_ITEM_TO_CART} from "../utils/graphql/mutations.js";
-import getUserProfile from "../app/account/getUserProfile.js";
 import {useDispatch} from "react-redux";
 import {toast} from "react-toastify";
+import {useProductQuery} from "../store/ProductQueryProvider.jsx";
+import {addItem} from "../app/cart/cartSlice.js";
 
 function ProductDetail() {
     const { id } = useParams();
@@ -15,41 +12,20 @@ function ProductDetail() {
     const [quantity, setQuantity] = useState(1);
     const [selectOption, setSelectOptions] = useState(0)
 
-    const [products, setProducts] = useState([]);
     const [productInformation, setProductInformation] = useState({});
 
+    const { products } = useProductQuery();
+
     const dispatch = useDispatch();
-
-    const { loading, error, data } = useProductQuery();
-
-    const [addItemToCart] = useMutation(ADD_ITEM_TO_CART, {
-        onCompleted: () => {
-            const token = localStorage.getItem("authToken");
-
-            if (token) {
-                dispatch(getUserProfile({ token }))
-            }
-        }
-    })
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
 
     useEffect(() => {
-        if (!data) return;
-
-        setProducts(data?.productData.data)
-    }, [data]);
-
-    useEffect(() => {
-        console.log(products)
-
         const product_detail = products.find((product) => {
             return product.id === Number(id)
         })
-
-        console.log(product_detail)
 
         setProductInformation(product_detail)
     }, [products, id]);
@@ -66,16 +42,7 @@ function ProductDetail() {
             theme: "light",
         });
 
-        try {
-            await addItemToCart({
-                variables: {
-                    productId: product_id,
-                    quantity
-                }
-            })
-        } catch (e) {
-            throw new Error(e)
-        }
+        dispatch(addItem({ product_id: id, user_action: "add", quantity: quantity }))
     }
 
     return (
@@ -248,10 +215,6 @@ function ProductDetail() {
                         </div>
                     </div>
                 </div>
-            }
-
-            {
-                loading && <Loading/>
             }
         </>
     )

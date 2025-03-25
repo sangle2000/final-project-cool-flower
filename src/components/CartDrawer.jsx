@@ -1,24 +1,17 @@
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Button from "react-bootstrap/Button";
 import CartItem from "./CartItem.jsx";
-import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {useUserCart} from "../store/UserCartProvider.jsx";
 
 function CartDrawer({ isShowCart, setIsShowCart }) {
 
-    const { userCart, refetch } = useUserCart()
+    const { userCart } = useUserCart()
 
     const { isLogin } = useSelector((state) => state.account)
 
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!isShowCart) return;
-
-        refetch()
-    }, [isShowCart])
 
     return (
         <>
@@ -62,7 +55,6 @@ function CartDrawer({ isShowCart, setIsShowCart }) {
                                             image={cartItem.imageUrl}
                                             price={cartItem.price - (cartItem.price * cartItem.salePercent)}
                                             quantity={cartItem.quantity}
-                                            refetch={refetch}
                                         />
                                     )
                                 }))
@@ -95,7 +87,7 @@ function CartDrawer({ isShowCart, setIsShowCart }) {
                             View cart
                         </Button>
 
-                        <Button variant="outline-dark" className="me-2">
+                        <Button variant="outline-dark" className="me-2" onClick={() => navigate("/checkout")}>
                             Checkout
                         </Button>
                     </div>

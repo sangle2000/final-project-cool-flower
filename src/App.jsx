@@ -15,6 +15,8 @@ import ProductDetail from "./components/ProductDetail.jsx";
 import CartDrawer from "./components/CartDrawer.jsx";
 import {useEffect, useState} from "react";
 import CartView from "./components/CartView.jsx";
+import Checkout from "./components/Checkout.jsx";
+import PaymentReturn from "./components/PaymentReturn.jsx";
 
 function App() {
     const [isShowCart, setIsShowCart] = useState(false);
@@ -35,6 +37,10 @@ function App() {
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/account/*" element={<Account/>}/>
                 <Route path="/cart" element={<CartView/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
+                <Route path="/payment_return" element={<PaymentReturn />} />
+                <Route path="/success" element={<h2>Payment Successful!</h2>} />
+                <Route path="/failed" element={<h2>Payment Failed!</h2>} />
                 <Route path="/product/:id" element={<ProductDetail/>}/>
             </Routes>
             <Footer/>

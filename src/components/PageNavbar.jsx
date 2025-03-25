@@ -11,17 +11,20 @@ import {useDeviceChecked} from "../store/DeviceCheckedProvider.jsx";
 import {Navigation, Pagination} from "swiper/modules";
 import {bannerImages} from "../utils/constant.js";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {useUserCart} from "../store/UserCartProvider.jsx";
 
 function PageNavbar({ setIsShowCart }) {
     const [currentPage, setCurrentPage] = useState("");
 
-    const { isLogin, wallet, name, item_in_cart } = useSelector((state) => state.account);
+    const { isLogin, wallet, name } = useSelector((state) => state.account);
 
     const [swiper, setSwiper] = useState(null);
 
     const [activeIndex, setActiveIndex] = useState(0);
 
     const [navHeight, setNavHeight] = useState(0);
+
+    const { userCart } = useUserCart()
 
     const navRef = useRef(null);
 
@@ -127,7 +130,7 @@ function PageNavbar({ setIsShowCart }) {
                             onClick={() => setIsShowCart(true)}
                         >
                             <i className="bi bi-bag-fill user-cart-logo"></i>
-                            <span className="user-cart-quantity">{isLogin ? item_in_cart : 0}</span>
+                            <span className="user-cart-quantity">{isLogin ? userCart.length : 0}</span>
                         </span>
                         {
                             isLogin ?
@@ -157,6 +160,7 @@ function PageNavbar({ setIsShowCart }) {
                 style={{
                     display: currentPage.startsWith("/account") ||
                     currentPage.startsWith("/cart") ||
+                    // currentPage.startsWith("/checkout") ||
                     currentPage.startsWith("/product") ? "none" : "block",
                 }}
             >

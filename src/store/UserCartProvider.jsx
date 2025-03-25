@@ -1,24 +1,63 @@
 import {createContext, useContext, useEffect, useState} from "react";
-import {useQuery} from "@apollo/client";
-import {USER_CART_DATA_QUERY} from "../utils/graphql/queries.js";
 import PropTypes from "prop-types";
+import {useDispatch, useSelector} from "react-redux";
+import Loading from "../sections/Loading.jsx";
+import getUserCart from "../app/cart/getUserCart.js";
+import updateUserCart from "../app/cart/updateUserCart.js";
 
 const UserCartContext = createContext(null);
 
 export const UserCartProvider = ({ children }) => {
     const [userCart, setUserCart] = useState([]);
 
-    const { data, loading, error, refetch } = useQuery(USER_CART_DATA_QUERY)
+    const { cart, actionList, status } = useSelector((state) => state.userCart);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!data) return;
+        const token = localStorage.getItem("authToken");
 
-        setUserCart(data.userCartData.data)
-    }, [data]);
+        if (token) {
+            dispatch(getUserCart({ token }))
+        }
+    }, [dispatch])
+
+    useEffect(() => {
+        if (status === "updateSuccess") {
+            const token = localStorage.getItem("authToken");
+
+            if (token) {
+                dispatch(getUserCart({ token }))
+            }
+        }
+    }, [status, dispatch]);
+
+    useEffect(() => {
+        if (!actionList.length) return;
+
+        const token = localStorage.getItem("authToken");
+
+        if (token) {
+            dispatch(updateUserCart({ token, payload: actionList }))
+        }
+
+    }, [actionList])
+
+    useEffect(() => {
+        if (!cart.length) {
+            setUserCart([])
+            return
+        }
+
+        setUserCart(cart)
+    }, [cart]);
 
     return (
-        <UserCartContext.Provider value={{loading, error, userCart, refetch}}>
+        <UserCartContext.Provider value={{userCart}}>
             {children}
+            {
+                (status === "getLoading") && <Loading />
+            }
         </UserCartContext.Provider>
     )
 }

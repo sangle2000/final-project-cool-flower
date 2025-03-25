@@ -5,17 +5,17 @@ import {useProductQuery} from "../store/ProductQueryProvider.jsx";
 function Feature() {
   const [saleProducts, setSaleProducts] = useState([]);
 
-  const { loading, error, data } = useProductQuery();
+  const { products } = useProductQuery();
 
   useEffect(() => {
-    if (!data) return;
+    if (!products) return;
 
-    const saleProductList = data?.productData.data.filter(product => {
+    const saleProductList = products.filter(product => {
       return product.salePercent > 0
     })
 
     setSaleProducts(saleProductList)
-  }, [data])
+  }, [products])
 
   return (
     <>

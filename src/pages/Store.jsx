@@ -1,21 +1,12 @@
 // import Header from "../components/Store/Header.jsx";
 import RecommendProduct from "../components/Store/RecommendProduct.jsx";
 import Helper from "../components/Helper.jsx";
-import {useProductQuery} from "../store/ProductQueryProvider.jsx";
-import {useEffect, useState} from "react";
-import Loading from "../sections/Loading.jsx";
 import ShoppingItemCard from "../components/Home/ShoppingItemCard.jsx";
+import {useProductQuery} from "../store/ProductQueryProvider.jsx";
 
 function Store() {
-    const [products, setProducts] = useState([]);
 
-    const { loading, error, data } = useProductQuery();
-
-    useEffect(() => {
-        if (!data) return;
-
-        setProducts(data?.productData.data)
-    }, [data]);
+    const { products } = useProductQuery();
 
     return (
         <>
@@ -53,10 +44,6 @@ function Store() {
             <Helper />
 
             <div className="blank" style={{ width: "100vw", marginTop: "8rem" }}></div>
-
-            {
-                loading && <Loading />
-            }
         </>
     )
 }

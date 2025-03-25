@@ -10,33 +10,48 @@ import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {useDeviceChecked} from "../store/DeviceCheckedProvider.jsx";
 import {useUserCart} from "../store/UserCartProvider.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {deleteItem, updateCart} from "../app/cart/cartSlice.js";
 
 function CartView() {
     const [cartItemList, setCartItemList] = useState([]);
+    const [updateCartList, setUpdateCartList] = useState([]);
     const [isUpdateCart, setIsUpdateCart] = useState(false);
 
-    const { userCart, refetch } = useUserCart()
+    const { userCart } = useUserCart()
 
     const device = useDeviceChecked()
 
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate()
+
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [])
 
-    useEffect(() => {
-        if (!userCart) return;
+        setUpdateCartList(userCart.map(item => {
+            const found = cartItemList.find(el => el.product_id === item.id)
+            console.log(found && found.quantity)
 
-        setCartItemList(userCart)
+            return found ? { ...item, quantity: found.quantity } : item
+        }))
+
+        setCartItemList(cartItemList.filter(item => {
+            return userCart.find(el => el.productId === item.id)
+        }))
     }, [userCart])
 
-    // const handleDeleteItem = (product_id) => {
-    //
-    // }
-    //
-    // const handleUpdateUserCart = () => {
-    //
-    // }
+    const handleUpdateUserCart = (user_action, product_id, quantity) => {
+        const isItem = cartItemList.some(item => item.productId === product_id);
+
+        if (isItem) {
+            setCartItemList(prev => prev.map(
+                (item) => item.productId === product_id ? {...item, userAction: user_action, quantity} : item));
+        } else {
+            setCartItemList(prev => [...prev, { productId: product_id, userAction: user_action, quantity }])
+        }
+    }
 
     return (
         <>
@@ -84,7 +99,13 @@ function CartView() {
                                                     fontSize: "0.8rem",
                                                     fontWeight: "700"
                                                 }}
-                                                onClick={() => setIsUpdateCart(false)}
+                                                onClick={() => {
+                                                    setIsUpdateCart(false)
+
+                                                    console.log(cartItemList)
+
+                                                    dispatch(updateCart(cartItemList))
+                                                }}
                                             >
                                                 Update cart
                                             </Button>
@@ -103,8 +124,8 @@ function CartView() {
                                     </TableHead>
                                     <TableBody>
                                         {
-                                            cartItemList.length > 0 ?
-                                                cartItemList.map((cartItem, index) => {
+                                            updateCartList.length > 0 ?
+                                                updateCartList.map((cartItem, index) => {
                                                     return (
                                                         <TableRow key={index}>
                                                             <TableCell component="th" scope="row" align="center">
@@ -143,7 +164,7 @@ function CartView() {
                                                                         const value = e.target.value;
                                                                         const newQuantity = value === "" ? "" : Math.max(0, Number(value));
 
-                                                                        const updateList = cartItemList.map((item) =>
+                                                                        const updateList = updateCartList.map((item) =>
                                                                             item.id === cartItem.id ? {
                                                                                 ...item,
                                                                                 quantity: newQuantity
@@ -151,18 +172,19 @@ function CartView() {
                                                                         );
 
                                                                         setIsUpdateCart(true);
-                                                                        setCartItemList(updateList);
+                                                                        setUpdateCartList(updateList);
+                                                                        handleUpdateUserCart("update", cartItem.id, newQuantity)
                                                                     }}
                                                                     onBlur={(e) => {
                                                                         const value = Number(e.target.value);
-                                                                        const updateList = cartItemList.map((item) =>
+                                                                        const updateList = updateCartList.map((item) =>
                                                                             item.id === cartItem.id ? {
                                                                                 ...item,
                                                                                 quantity: isNaN(value) || value.isNaN ? 0 : value
                                                                             } : item
                                                                         );
 
-                                                                        setCartItemList(updateList);
+                                                                        setUpdateCartList(updateList);
                                                                     }}
                                                                 />
                                                             </TableCell>
@@ -179,7 +201,7 @@ function CartView() {
                                                                     <button
                                                                         className="button"
                                                                         type="button"
-                                                                        // onClick={() => handleDeleteItem(index)}
+                                                                        onClick={() => dispatch(deleteItem({ product_id: cartItem.id, user_action: "delete" }))}
                                                                     >
                                                                         <span className="button__text">Delete</span>
                                                                         <span className="button__icon">
@@ -298,6 +320,7 @@ function CartView() {
                                                     fontWeight: "700",
                                                     letterSpacing: "1px"
                                                 }}
+                                                onClick={() => navigate("/checkout")}
                                             >
                                                 Proceed to checkout
                                             </Button>
@@ -323,7 +346,7 @@ function CartView() {
 
                                             <TableCell align="right">
                                                 {
-                                                    cartItemList.reduce((acc, cartItem) => {
+                                                    updateCartList.reduce((acc, cartItem) => {
                                                         return acc + (cartItem.price - (cartItem.price * cartItem.salePercent)) * cartItem.quantity;
                                                     }, 0).toLocaleString("de-DE")
                                                 } VNĐ
@@ -337,7 +360,7 @@ function CartView() {
 
                                             <TableCell align="right">
                                                 {
-                                                    cartItemList.reduce((acc, cartItem) => {
+                                                    updateCartList.reduce((acc, cartItem) => {
                                                         return acc + (cartItem.price - (cartItem.price * cartItem.salePercent)) * cartItem.quantity;
                                                     }, 0).toLocaleString("de-DE")
                                                 } VNĐ
@@ -350,7 +373,7 @@ function CartView() {
                          :
                         <div className="cart-view-mb">
                             {
-                                cartItemList.map((cartItem, index) => {
+                                updateCartList.map((cartItem, index) => {
                                     return (
                                         <TableContainer key={cartItem.id} style={{ marginBottom: "1rem" }}>
                                             <Table aria-label="simple table">
@@ -429,7 +452,7 @@ function CartView() {
                                                                     const value = e.target.value;
                                                                     const newQuantity = value === "" ? "" : Math.max(0, Number(value));
 
-                                                                    const updateList = cartItemList.map((item) =>
+                                                                    const updateList = updateCartList.map((item) =>
                                                                         item.id === cartItem.id ? {
                                                                             ...item,
                                                                             quantity: newQuantity
@@ -437,18 +460,19 @@ function CartView() {
                                                                     );
 
                                                                     setIsUpdateCart(true);
-                                                                    setCartItemList(updateList);
+                                                                    setUpdateCartList(updateList);
                                                                 }}
                                                                 onBlur={(e) => {
                                                                     const value = Number(e.target.value);
-                                                                    const updateList = cartItemList.map((item) =>
+                                                                    const updateList = updateCartList.map((item) =>
                                                                         item.id === cartItem.id ? {
                                                                             ...item,
                                                                             quantity: isNaN(value) || value.isNaN ? 0 : value
                                                                         } : item
                                                                     );
 
-                                                                    setCartItemList(updateList);
+                                                                    handleUpdateUserCart("update", cartItem.id, value)
+                                                                    setUpdateCartList(updateList);
                                                                 }}
                                                             />
                                                         </TableCell>
@@ -614,7 +638,13 @@ function CartView() {
                                                     fontSize: "0.75rem",
                                                     fontWeight: "700"
                                                 }}
-                                                onClick={() => setIsUpdateCart(false)}
+                                                onClick={() => {
+                                                    setIsUpdateCart(false)
+
+                                                    console.log(cartItemList)
+
+                                                    dispatch(updateCart(cartItemList))
+                                                }}
                                             >
                                                 Update cart
                                             </Button>
@@ -639,6 +669,7 @@ function CartView() {
                                                     fontWeight: "700",
                                                     letterSpacing: "1px"
                                                 }}
+                                                onClick={() => navigate("/checkout")}
                                             >
                                                 Proceed to checkout
                                             </Button>
@@ -664,7 +695,7 @@ function CartView() {
 
                                             <TableCell align="right">
                                                 {
-                                                    cartItemList.reduce((acc, cartItem) => {
+                                                    updateCartList.reduce((acc, cartItem) => {
                                                         return acc + (cartItem.price - (cartItem.price * cartItem.salePercent)) * cartItem.quantity;
                                                     }, 0).toLocaleString("de-DE")
                                                 } VNĐ
@@ -678,7 +709,7 @@ function CartView() {
 
                                             <TableCell align="right">
                                                 {
-                                                    cartItemList.reduce((acc, cartItem) => {
+                                                    updateCartList.reduce((acc, cartItem) => {
                                                         return acc + (cartItem.price - (cartItem.price * cartItem.salePercent)) * cartItem.quantity;
                                                     }, 0).toLocaleString("de-DE")
                                                 } VNĐ

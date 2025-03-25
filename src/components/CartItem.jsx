@@ -1,33 +1,11 @@
-import {useMutation} from "@apollo/client";
-import {DELETE_ITEM_IN_CART} from "../utils/graphql/mutations.js";
-import getUserProfile from "../app/account/getUserProfile.js";
 import {useDispatch} from "react-redux";
+import {deleteItem} from "../app/cart/cartSlice.js";
 
-function CartItem({ id, image, name, price, quantity, refetch }) {
+function CartItem({ id, image, name, price, quantity }) {
     const dispatch = useDispatch();
 
-    const [deleteItemInCart] = useMutation(DELETE_ITEM_IN_CART, {
-        onCompleted: () => {
-            const token = localStorage.getItem("authToken");
-
-            if (token) {
-                dispatch(getUserProfile({ token }))
-            }
-
-            refetch()
-        }
-    })
-
     const handleDeleteItemInCart = async () => {
-        try {
-            await deleteItemInCart({
-                variables: {
-                    productId: id
-                }
-            })
-        } catch (e) {
-            throw new Error(e)
-        }
+        dispatch(deleteItem({ product_id: id, user_action: "delete" }));
     }
 
     return (
