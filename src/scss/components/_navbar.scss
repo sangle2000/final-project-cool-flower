@@ -1,12 +1,13 @@
 .navbar {
     position: fixed;
     width: 100vw;
+    height: 100px !important;
     background-color: white !important;
 
     .container {
         position: relative;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
 
         @media screen and (max-width: 721px) {
             padding: 0.5rem !important;

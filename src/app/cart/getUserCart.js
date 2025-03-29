@@ -7,8 +7,6 @@ const getUserCart = createAsyncThunk(
         try {
             const response = await getUserCartAPI({ token })
 
-            console.log(response);
-
             return response;
         } catch (err) {
             return rejectWithValue(err);

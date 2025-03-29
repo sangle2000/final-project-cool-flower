@@ -9,6 +9,7 @@ import client from "./apolloClient.js";
 import {ProductQueryProvider} from "./store/ProductQueryProvider.jsx";
 import {DeviceCheckedProvider} from "./store/DeviceCheckedProvider.jsx";
 import {UserCartProvider} from "./store/UserCartProvider.jsx";
+import {OrderInformationProvider} from "./store/OrderInformationProvider.jsx";
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
@@ -17,7 +18,9 @@ createRoot(document.getElementById('root')).render(
                 <DeviceCheckedProvider>
                     <ProductQueryProvider>
                         <UserCartProvider>
-                            <App />
+                            <OrderInformationProvider>
+                                <App />
+                            </OrderInformationProvider>
                         </UserCartProvider>
                     </ProductQueryProvider>
                 </DeviceCheckedProvider>

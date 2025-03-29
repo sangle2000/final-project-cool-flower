@@ -39,3 +39,31 @@ export const USER_CART_DATA_QUERY = gql`
       }
     }
 `
+
+export const USER_ORDER_DATA_QUERY = gql`
+    query {
+      userOrderData {
+        status
+        message
+        data {
+          orderCode
+          orderStatus
+          orderInformation {
+              name
+              phone
+              address
+              note
+            }
+          itemsList
+          {
+            productId
+            productName
+            quantity
+            price
+            imageUrl
+            salePercent
+          }
+        }
+      }
+    }
+`

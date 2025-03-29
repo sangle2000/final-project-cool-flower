@@ -1,15 +1,23 @@
 import {useUserCart} from "../store/UserCartProvider.jsx";
 import {useEffect, useState} from "react";
-import {InputGroup} from "react-bootstrap";
+import {DropdownButton, InputGroup} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
+import Dropdown from 'react-bootstrap/Dropdown';
 import {useSelector} from "react-redux";
 import Button from "react-bootstrap/Button";
 import {useMutation} from "@apollo/client";
 import {CHECKOUT_MUTATION} from "../utils/graphql/mutations.js";
+import {useNavigate} from "react-router-dom";
 
 function Checkout() {
 
     const [currentSlide, setCurrentSlide] = useState(0)
+    const [paymentType, setPaymentType] = useState("Choose Payment Type");
+    const [deliveryType, setDeliveryType] = useState("Choose Delivery Type");
+
+    const [userName, setUserName] = useState("");
+    const [userAddress, setUserAddress] = useState("");
+    const [userPhone, setUserPhone] = useState("");
 
     const { name, address, phone } = useSelector((state) => state.account);
 
@@ -17,9 +25,7 @@ function Checkout() {
 
     const { userCart } = useUserCart()
 
-    useEffect(() => {
-        console.log(userCart)
-    }, [userCart])
+    const navigate = useNavigate();
 
     const getCurrentTimeFormatted = () => {
         const now = new Date();
@@ -33,24 +39,42 @@ function Checkout() {
         return `${YYYY}${MM}${DD}${HH}${mm}${SS}`;
     }
 
-    const handleCheckout = async () => {
-        const total = userCart.reduce((acc, current) => {
-            return acc + (current.price - (current.price * current.salePercent)) * current.quantity;
-        }, 0)
+    useEffect(() => {
+        setUserName(name)
+        setUserAddress(address)
+        setUserPhone(phone)
+    }, [name, address, phone])
 
-        try {
-            await payment({
-                variables: {
-                    orderType: "Thanh toán hóa đơn",
-                    orderId: getCurrentTimeFormatted(),
-                    amount: total,
-                    orderDesc: "Thanh toán hóa đơn mua hàng",
-                    bankCode: "",
-                    language: "vn"
-                }
-            })
-        } catch (err) {
-            throw new Error(err)
+    const handleCheckout = async () => {
+        const orderInfo = {
+            name: userName,
+            phone: userPhone,
+            address: userAddress,
+        };
+
+        localStorage.setItem("orderInformation", JSON.stringify(orderInfo));
+
+        if (paymentType === "Cash") {
+            navigate("/order")
+        } else if (paymentType === "VNPAY") {
+            const total = userCart.reduce((acc, current) => {
+                return acc + (current.price - (current.price * current.salePercent)) * current.quantity;
+            }, 0)
+
+            try {
+                await payment({
+                    variables: {
+                        orderType: "Thanh toán hóa đơn",
+                        orderId: getCurrentTimeFormatted(),
+                        amount: total,
+                        orderDesc: "Thanh toán hóa đơn mua hàng",
+                        bankCode: "",
+                        language: "vn"
+                    }
+                })
+            } catch (err) {
+                throw new Error(err)
+            }
         }
     }
 
@@ -150,8 +174,9 @@ function Checkout() {
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">Name</InputGroup.Text>
                                     <Form.Control
-                                        value={name}
-                                        placeholder={name}
+                                        value={userName}
+                                        placeholder={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
                                         aria-label="name"
                                         aria-describedby="basic-addon1"
                                     />
@@ -160,8 +185,9 @@ function Checkout() {
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">Phone</InputGroup.Text>
                                     <Form.Control
-                                        value={phone}
-                                        placeholder={phone}
+                                        value={userPhone}
+                                        placeholder={userPhone}
+                                        onChange={(e) => setUserPhone(e.target.value)}
                                         aria-label="name"
                                         aria-describedby="basic-addon1"
                                     />
@@ -170,8 +196,9 @@ function Checkout() {
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">Address</InputGroup.Text>
                                     <Form.Control
-                                        value={address}
-                                        placeholder={address}
+                                        value={userAddress}
+                                        placeholder={userAddress}
+                                        onChange={(e) => setUserAddress(e.target.value)}
                                         aria-label="name"
                                         aria-describedby="basic-addon1"
                                     />
@@ -188,22 +215,35 @@ function Checkout() {
 
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">Delivery Type</InputGroup.Text>
-                                    <Form.Control
-                                        value="Express"
-                                        placeholder="Example: Express"
-                                        aria-label="name"
-                                        aria-describedby="basic-addon1"
-                                    />
+                                    <DropdownButton
+                                        variant="outline-secondary"
+                                        title={deliveryType}
+                                        id="input-group-dropdown-1"
+                                        style={{
+                                            display: "block",
+                                            width: "100% !important"
+                                        }}
+                                    >
+                                        <Dropdown.Item onClick={() => setDeliveryType("Express")}>Express</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => setDeliveryType("Standard Delivery")}>Standard Delivery</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => setDeliveryType("Same-Day Delivery")}>Same-Day Delivery</Dropdown.Item>
+                                    </DropdownButton>
                                 </InputGroup>
 
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text id="basic-addon1">Payment Type</InputGroup.Text>
-                                    <Form.Control
-                                        value="VNPAY"
-                                        placeholder="Example: VNPAY"
-                                        aria-label="name"
-                                        aria-describedby="basic-addon1"
-                                    />
+                                    <DropdownButton
+                                        variant="outline-secondary"
+                                        title={paymentType}
+                                        id="input-group-dropdown-1"
+                                        style={{
+                                            display: "block",
+                                            width: "100% !important"
+                                        }}
+                                    >
+                                        <Dropdown.Item onClick={() => setPaymentType("Cash")}>Cash</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => setPaymentType("VNPAY")}>VNPAY</Dropdown.Item>
+                                    </DropdownButton>
                                 </InputGroup>
 
                                 <Button onClick={handleCheckout}>

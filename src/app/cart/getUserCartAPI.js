@@ -3,8 +3,6 @@ import {api} from "../../utils/constant.js";
 
 const getUserCartAPI = async ({ token }) => {
     try {
-        console.log(token)
-
         const response = await axios.post(
             api,
             {

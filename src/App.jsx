@@ -17,6 +17,7 @@ import {useEffect, useState} from "react";
 import CartView from "./components/CartView.jsx";
 import Checkout from "./components/Checkout.jsx";
 import PaymentReturn from "./components/PaymentReturn.jsx";
+import Order from "./components/Order.jsx";
 
 function App() {
     const [isShowCart, setIsShowCart] = useState(false);
@@ -39,7 +40,7 @@ function App() {
                 <Route path="/cart" element={<CartView/>}/>
                 <Route path="/checkout" element={<Checkout/>}/>
                 <Route path="/payment_return" element={<PaymentReturn />} />
-                <Route path="/success" element={<h2>Payment Successful!</h2>} />
+                <Route path="/orders" element={<Order />} />
                 <Route path="/failed" element={<h2>Payment Failed!</h2>} />
                 <Route path="/product/:id" element={<ProductDetail/>}/>
             </Routes>

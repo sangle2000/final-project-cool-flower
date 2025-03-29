@@ -12,6 +12,7 @@ import {Navigation, Pagination} from "swiper/modules";
 import {bannerImages} from "../utils/constant.js";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {useUserCart} from "../store/UserCartProvider.jsx";
+import getUserCart from "../app/cart/getUserCart.js";
 
 function PageNavbar({ setIsShowCart }) {
     const [currentPage, setCurrentPage] = useState("");
@@ -50,6 +51,7 @@ function PageNavbar({ setIsShowCart }) {
         if (token) {
             dispatch(loginAccount())
             dispatch(getUserProfile({ token }))
+            dispatch(getUserCart({ token }))
         }
     }, [isLogin, wallet, name])
 
@@ -59,15 +61,15 @@ function PageNavbar({ setIsShowCart }) {
         }
     }, [navRef.current?.offsetHeight]);
 
-    useEffect(() => {
-        console.log("Nav Height:", navHeight)
-    }, [navHeight])
-
     const location = useLocation();
 
     useEffect(() => {
         setCurrentPage(location.pathname);
     }, [location]);
+
+    useEffect(() => {
+        console.log(navHeight)
+    }, [navHeight])
 
     return (
         <>

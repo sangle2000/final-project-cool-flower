@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addItem} from "../../app/cart/cartSlice.js";
+import {Rating} from "@mui/material";
 
 function ShoppingItemCard({
   id,
@@ -40,11 +41,7 @@ function ShoppingItemCard({
         <span className="item-card-detail-type">{type}</span>
         <span className="item-card-detail-name">{name}</span>
         <div className="item-card-detail-star">
-          <i className="bi bi-star"></i>
-          <i className="bi bi-star"></i>
-          <i className="bi bi-star"></i>
-          <i className="bi bi-star"></i>
-          <i className="bi bi-star"></i>
+          <Rating name="half-rating-read" defaultValue={5} precision={0.5} readOnly />
         </div>
         <div className="item-card-detail-price">
           <div className="item-card-detail-price-old">

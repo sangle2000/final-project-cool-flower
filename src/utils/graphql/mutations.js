@@ -47,3 +47,16 @@ export const CHECKOUT_MUTATION = gql`
       }
     }
 `
+
+export const ORDER_MUTATION = gql`
+    mutation CreateOrder($paymentMethods: String!, $paymentSuccess: Boolean!, $orderInformation: UserOrderInformationInput!) {
+        orders (
+            paymentMethods: $paymentMethods
+            paymentSuccess: $paymentSuccess
+            orderInformation: $orderInformation
+        ) {
+            status
+            errors
+        }
+    }
+`
